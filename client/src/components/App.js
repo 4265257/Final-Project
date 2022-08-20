@@ -1,14 +1,14 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, useState } from "react";
-function App() {
-  const [message, setMessage] = useState("No message");
-  useEffect(() => {
-    fetch("/fetch-message")
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message))
-      .catch((e) => console.log("Got error", e));
-  }, []);
+const  App = () => {
+  // const [message, setMessage] = useState("No message");
+  // useEffect(() => {
+  //   fetch("/fetch-message")
+  //     .then((res) => res.json())
+  //     .then((data) => setMessage(data.message))
+  //     .catch((e) => console.log("Got error", e));
+  // }, []);
 
   return (
     <div className="App">
