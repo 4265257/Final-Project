@@ -36,13 +36,12 @@ export default createGlobalStyle`
     /* HTML5 display-role reset for older browsers */
     article, aside, details, figcaption, figure,
     footer, header, hgroup, menu, nav, section {
-        display: block;
+        //display: block;
         position:relative
     }
     body {
         line-height: 1;
-        background-color: white;
-        padding-top: 50px;
+        background-color: white;    
     }
     ol, ul {
         list-style: none;

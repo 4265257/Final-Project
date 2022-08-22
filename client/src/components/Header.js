@@ -17,9 +17,9 @@ const HeaderArea = styled.header`
   display: inline-flex;
   width: 100%;
   justify-content: space-between;
-  position: fixed;
-  margin:0 ;
-  top:0;
+  //position: fixed;
+ //margin:0 ;
+  //top:0;
 
   height:50px;
   
