@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useContext } from "react";
 import styled from "styled-components";
 import { Image } from "cloudinary-react";
+
 const Homepage = () => {
   return (
     <div>
@@ -225,7 +226,9 @@ const Layout = styled.div`
   justify-content: center;
   align-items: center;
   align-content: center;
-  // margin: 10px 0 0 0;
+  width: 100%;
+   //margin-left: auto;
+  // margin-right: auto;
 `;
 const LayoutSmallerSec = styled.div`
 	display: flex;

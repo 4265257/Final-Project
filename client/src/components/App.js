@@ -7,6 +7,8 @@ import Homepage from "../components/Homepage/Homepage"
 import SignInForm from "./SignIn-Up/SignIn";
 import SignUpForm from "./SignIn-Up/SignUp";
 import { useEffect, useState } from "react";
+import { UserProvider } from "./UserContext";
+
 const  App = () => {
   // const [message, setMessage] = useState("No message");
   // useEffect(() => {
@@ -19,6 +21,7 @@ const  App = () => {
   return (
     <div>
     <BrowserRouter>
+    <UserProvider>
       <GlobalStyles />
        <Header></Header> 
       <Routes>
@@ -35,6 +38,7 @@ const  App = () => {
       */}
         <Route path="">404: Oops!</Route> 
       </Routes>
+      </UserProvider>
     </BrowserRouter>
   </div>
   );
