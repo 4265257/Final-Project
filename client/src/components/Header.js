@@ -1,28 +1,28 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "./UserContext";
-
+import { LoginButton } from "./SignIn-Up/LoginButton";
+import { LogoutButton } from "./SignIn-Up/LogoutButton";
+//import { useAuth0 } from "@auth0/auth0-react";
+//import { UserContext } from "./UserContext";
 const Header = () => {
-  const { currentUser,signOutFunction } = useContext(UserContext);
-  return (
+ // const { currentUser, signOutFunction } = useContext(UserContext);
+ //const { isLoading, error } = useAuth0; 
+ return (
     <HeaderArea>
       <LogoArea to={`/`}>
-        <h1>GardenHelper</h1>
+        <h1>Garden Helper</h1>
       </LogoArea>
-      {currentUser && (
-          <div>
-            <h1 style={{ color: "white", marginTop: 10, marginLeft: 10 }}>
-              {currentUser}
-            </h1>
-            <Button style={{fontSize:15,  marginRight: 15}}onClick={signOutFunction}>sign out</Button>
-          </div>
-        )}
-        {!currentUser && (
-          <Link to={`/signIn`}>
-            <Button>sign in</Button>
-          </Link>
-        )}
+      <SignInOutArea>
+{/*         {error && <p>Authentication Error</p>}
+        {!error &&  isLoading && <p>Loading</p>}
+        {!error && !isLoading && (
+          <> */}
+      <LoginButton />
+      <LogoutButton />
+{/*           </>
+        )} */}
+      </SignInOutArea>
     </HeaderArea>
   );
 };
@@ -31,17 +31,17 @@ const HeaderArea = styled.header`
   width: 100%;
   justify-content: space-between;
   //position: fixed;
- //margin:0 ;
+  //margin:0 ;
   //top:0;
-  height:50px;
+  height: 50px;
 `;
 const Button = styled.button`
   background-color: var(--primary-color);
   //font-family: var(--heading-font-family);
   color: black;
   margin-top: 10px;
-  margin-right:10px ;
-  border-radius: 5px ;
+  margin-right: 10px;
+  border-radius: 5px;
   font-size: 20px;
 `;
 const ButtonsArea = styled.div`
@@ -56,6 +56,25 @@ const CartArea = styled(Link)`
 const LogoArea = styled(Link)`
   margin: 10px;
 `;
-const SignIn = styled(Link)``;
+const SignInOutArea = styled.div`
+margin: 10px 10px ;
+
+`;
 
 export default Header;
+
+{
+  /*   {currentUser && (
+      <div>
+        <h1 style={{ color: "white", marginTop: 10, marginLeft: 10 }}>
+          {currentUser}
+        </h1>
+        <Button style={{fontSize:15,  marginRight: 15}}onClick={signOutFunction}>sign out</Button>
+      </div>
+    )}
+    {!currentUser && (
+      <Link to={`/signIn`}>
+        <Button>sign in</Button>
+      </Link>
+    )} */
+}

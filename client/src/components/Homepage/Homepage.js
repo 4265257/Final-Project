@@ -7,6 +7,7 @@ const Homepage = () => {
   return (
     <div>
       <HomeArea>
+
         <h2 style={{ textAlign: "center", margin: 20 }}>Vegetables</h2>
         <Layout>
           <ImageArea>

@@ -70,6 +70,7 @@ export default createGlobalStyle`
     }
     button{
         border: none;
+        border-radius: 5px;
     }
     div, p, button, span, input {
         color: black;
