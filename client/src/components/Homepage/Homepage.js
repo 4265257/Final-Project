@@ -3,63 +3,25 @@ import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { Image } from "cloudinary-react";
 import { Link } from "react-router-dom";
-
+import { ItemContext } from "../ItemContext";
 const Homepage = () => {
-  const [veggies, setVeggies] = useState(null);
-  const [fruits, setFruits] = useState(null);
-  const [fineHerbes, setFineHerbes] = useState(null);
-  useEffect(() => {
-    fetch("/getVeggies")
-      .then((res) => res.json())
-      .then((data) => {
-        setVeggies(data);
-      });
-  }, []);
-  useEffect(() => {
-    fetch("/getFruits")
-      .then((res) => res.json())
-      .then((data) => {
-        setFruits(data);
-      });
-  }, []);
-  useEffect(() => {
-    fetch("/getFineHerbes")
-      .then((res) => res.json())
-      .then((data) => {
-        setFineHerbes(data);
-      });
-  }, []);
-
-  if (!veggies) {
-    return null;
-  }
-  if (!fruits) {
-    return null;
-  }
-  if (!fineHerbes) {
-    return null;
-  }
+  const { veggies, fruits, fineHerbes } = useContext(ItemContext);
   return (
     <div>
       <h2 style={{ textAlign: "center", margin: 20 }}>Vegetables</h2>
       <Layout>
         {veggies.data.map((veggie) => {
           return (
-            <div key={veggie.id}>
-              <ImageArea>
-                <Image
-                  style={{
-                    height: 200,
-                    marginLeft: 10,
-                    marginTop: 10,
-                    marginRight: 10,
-                  }}
-                  cloudName="yarabrek"
-                  publicId={veggie.avatarPic}
-                />
-                <Label>{veggie.name}</Label>
-              </ImageArea>
-            </div>
+            <ImageArea key={veggie.id} to={`/individualPage/${veggie.id}`}>
+              <Image
+                style={{
+                  height: 200,
+                }}
+                cloudName="yarabrek"
+                publicId={veggie.avatarPic}
+              />
+              <Label>{veggie.name}</Label>
+            </ImageArea>
           );
         })}
       </Layout>
@@ -67,21 +29,19 @@ const Homepage = () => {
       <Layout>
         {fineHerbes.data.map((fineHerbe) => {
           return (
-            <div key={fineHerbe.id}>
-              <ImageArea>
-                <Image
-                  style={{
-                    height: 200,
-                    marginLeft: 10,
-                    marginTop: 10,
-                    marginRight: 10,
-                  }}
-                  cloudName="yarabrek"
-                  publicId={fineHerbe.avatarPic}
-                />
-                <Label>{fineHerbe.name}</Label>
-              </ImageArea>
-            </div>
+            <ImageArea
+              key={fineHerbe.id}
+              to={`/individualPage/${fineHerbe.id}`}
+            >
+              <Image
+                style={{
+                  height: 200,
+                }}
+                cloudName="yarabrek"
+                publicId={fineHerbe.avatarPic}
+              />
+              <Label>{fineHerbe.name}</Label>
+            </ImageArea>
           );
         })}
       </Layout>
@@ -89,21 +49,16 @@ const Homepage = () => {
       <Layout>
         {fruits.data.map((fruit) => {
           return (
-            <div key={fruit.id}>
-              <ImageArea>
-                <Image
-                  style={{
-                    height: 200,
-                    marginLeft: 10,
-                    marginTop: 10,
-                    marginRight: 10,
-                  }}
-                  cloudName="yarabrek"
-                  publicId={fruit.avatarPic}
-                />
-                <Label>{fruit.name}</Label>
-              </ImageArea>
-            </div>
+            <ImageArea key={fruit.id} to={`/individualPage/${fruit.id}`}>
+              <Image
+                style={{
+                  height: 200,
+                }}
+                cloudName="yarabrek"
+                publicId={fruit.avatarPic}
+              />
+              <Label>{fruit.name}</Label>
+            </ImageArea>
           );
         })}
       </Layout>
@@ -120,7 +75,7 @@ const Layout = styled.div`
   align-items: center;
   align-content: center;
   width: 100%;
-  margin-bottom: 20px;
+ // margin-bottom: 20px;
   //margin-left: auto;
   // margin-right: auto;
 `;
@@ -132,14 +87,14 @@ const Label = styled.div`
   font-size: 25px;
   background: rgb(72, 72, 72, 0.6);
   color: White;
-  `;
-const ImageArea = styled.div`
+`;
+const ImageArea = styled(Link)`
   width: fit-content;
   position: relative;
-  border: solid black 2px;
+  // border: solid black 2px;
   border-radius: 5px;
   margin: 10px;
-  `;
+`;
 
 export default Homepage;
 

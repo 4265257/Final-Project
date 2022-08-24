@@ -41,7 +41,8 @@ export default createGlobalStyle`
     }
     body {
         line-height: 1;
-        background-color: white;    
+        background-color: white; 
+        min-height: 1000px;   
     }
     ol, ul {
         list-style: none;
@@ -81,4 +82,13 @@ export default createGlobalStyle`
         color: black;
         text-decoration: none;
     }
+    footer {
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: var(--secondary-color);
+        text-align: center;
+}
+
+
 `;
