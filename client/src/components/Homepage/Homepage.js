@@ -1,222 +1,112 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { Image } from "cloudinary-react";
 import { Link } from "react-router-dom";
 
-
 const Homepage = () => {
+  const [veggies, setVeggies] = useState(null);
+  const [fruits, setFruits] = useState(null);
+  const [fineHerbes, setFineHerbes] = useState(null);
+  useEffect(() => {
+    fetch("/getVeggies")
+      .then((res) => res.json())
+      .then((data) => {
+        setVeggies(data);
+      });
+  }, []);
+  useEffect(() => {
+    fetch("/getFruits")
+      .then((res) => res.json())
+      .then((data) => {
+        setFruits(data);
+      });
+  }, []);
+  useEffect(() => {
+    fetch("/getFineHerbes")
+      .then((res) => res.json())
+      .then((data) => {
+        setFineHerbes(data);
+      });
+  }, []);
+
+  if (!veggies) {
+    return null;
+  }
+  if (!fruits) {
+    return null;
+  }
+  if (!fineHerbes) {
+    return null;
+  }
   return (
     <div>
-      <HomeArea>
-
-        <h2 style={{ textAlign: "center", margin: 20 }}>Vegetables</h2>
-        <Layout>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124940/DSC_0805_xzekip.jpg"
-            />
-          <Label>Cucumber</Label>
-          </ImageArea>
-
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124940/DSC_0811_vvhnkz.jpg"
-            />
-          <Label>Zucchini</Label>
-          </ImageArea>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124939/DSC_0448i_kmahnf.jpg"
-            />
-          <Label>Kale</Label>
-          </ImageArea>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124937/DSC_0775_pey1fy.jpg"
-            />
-          <Label>Green Bean</Label>
-          </ImageArea>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124937/DSC_0393i_gytbv5.jpg"
-            />
-          <Label>Tomato</Label>
-          </ImageArea>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124939/DSC_0615_c9y8zm.jpg"
-            />
-          <Label>Lettuce</Label>
-          </ImageArea>
-        </Layout>
-        <h2 style={{ textAlign: "center", margin: 20 }}>Fine Herbes</h2>
-        <Layout>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124940/DSC_0951_mmocpa.jpg"
-            />
-          <Label>Chives</Label>
-          </ImageArea>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124939/DSC_0444_nor5uh.jpg"
-            />
-          <Label>Persil</Label>
-          </ImageArea>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124938/DSC_0553_twbtxn.jpg"
-            />
-          <Label>Mint</Label>
-          </ImageArea>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124938/DSC_0142_qaawax.jpg"
-            />
-          <Label>Sage</Label>
-          </ImageArea>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124937/DSC_0769_af3jmh.jpg"
-            />
-          <Label>Basil</Label>
-          </ImageArea>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124937/DSC_0688_kar8jl.jpg"
-            />
-          <Label>Thyme</Label>
-          </ImageArea>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124937/DSC_0140_w7dzws.jpg"
-            />
-          <Label>Coriander</Label>
-          </ImageArea>
-        </Layout>
-
-        <h2 style={{ textAlign: "center", margin: 20 }}>Fruits</h2>
-        <LayoutSmallerSec>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124938/DSC_0544_mxtf2o.jpg"
-            />
-          <Label>Strawberry</Label>
-          </ImageArea>
-          <ImageArea>
-            <Image
-              style={{
-                height: 200,
-                marginLeft: 10,
-                marginTop: 10,
-                marginRight: 10,
-              }}
-              cloudName="yarabrek"
-              publicId="https://res.cloudinary.com/yarabrek/image/upload/v1661124940/DSC_0824_d9whbm.jpg"
-            />
-          <Label>Raspberry</Label>
-          </ImageArea>
-        </LayoutSmallerSec>
-      </HomeArea>
+      <h2 style={{ textAlign: "center", margin: 20 }}>Vegetables</h2>
+      <Layout>
+        {veggies.data.map((veggie) => {
+          return (
+            <div key={veggie.id}>
+              <ImageArea>
+                <Image
+                  style={{
+                    height: 200,
+                    marginLeft: 10,
+                    marginTop: 10,
+                    marginRight: 10,
+                  }}
+                  cloudName="yarabrek"
+                  publicId={veggie.avatarPic}
+                />
+                <Label>{veggie.name}</Label>
+              </ImageArea>
+            </div>
+          );
+        })}
+      </Layout>
+      <h2 style={{ textAlign: "center", margin: 20 }}>Fines Herbes</h2>
+      <Layout>
+        {fineHerbes.data.map((fineHerbe) => {
+          return (
+            <div key={fineHerbe.id}>
+              <ImageArea>
+                <Image
+                  style={{
+                    height: 200,
+                    marginLeft: 10,
+                    marginTop: 10,
+                    marginRight: 10,
+                  }}
+                  cloudName="yarabrek"
+                  publicId={fineHerbe.avatarPic}
+                />
+                <Label>{fineHerbe.name}</Label>
+              </ImageArea>
+            </div>
+          );
+        })}
+      </Layout>
+      <h2 style={{ textAlign: "center", margin: 20 }}>Fruits</h2>
+      <Layout>
+        {fruits.data.map((fruit) => {
+          return (
+            <div key={fruit.id}>
+              <ImageArea>
+                <Image
+                  style={{
+                    height: 200,
+                    marginLeft: 10,
+                    marginTop: 10,
+                    marginRight: 10,
+                  }}
+                  cloudName="yarabrek"
+                  publicId={fruit.avatarPic}
+                />
+                <Label>{fruit.name}</Label>
+              </ImageArea>
+            </div>
+          );
+        })}
+      </Layout>
     </div>
   );
 };
@@ -230,15 +120,9 @@ const Layout = styled.div`
   align-items: center;
   align-content: center;
   width: 100%;
-   //margin-left: auto;
+  margin-bottom: 20px;
+  //margin-left: auto;
   // margin-right: auto;
-`;
-const LayoutSmallerSec = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-  margin-bottom: 20%; 
 `;
 const Label = styled.div`
   text-align: center;
@@ -246,16 +130,16 @@ const Label = styled.div`
   bottom: 10px;
   width: 100%;
   font-size: 25px;
- background: 	rgb(72,72,72, 0.6);
+  background: rgb(72, 72, 72, 0.6);
   color: White;
-`;
+  `;
 const ImageArea = styled.div`
-width: fit-content;
-position:relative;
-border: solid black 2px;
-border-radius: 5px;
-margin:10px;
-`;
+  width: fit-content;
+  position: relative;
+  border: solid black 2px;
+  border-radius: 5px;
+  margin: 10px;
+  `;
 
 export default Homepage;
 
@@ -266,6 +150,13 @@ export default Homepage;
 //   max-width: 150px;
 //   border: none;
 //   `;
+// const LayoutSmallerSec = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   align-items: center;
+//   margin-bottom: 20%;
+// `;
 // const DescriptionArea = styled.form`
 //   background-color: var(--primary-color);
 //   display: inline-flex;

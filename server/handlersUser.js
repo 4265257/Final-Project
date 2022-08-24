@@ -44,7 +44,7 @@ const  create =(user, callback) => {
   });
 }
 module.exports = {
-  login,
+//  login,
   create,
-  getByEmail
+//  getByEmail
 };
