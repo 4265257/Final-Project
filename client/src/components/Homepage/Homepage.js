@@ -2,6 +2,8 @@ import React from "react";
 import { useState, useContext } from "react";
 import styled from "styled-components";
 import { Image } from "cloudinary-react";
+import { Link } from "react-router-dom";
+
 
 const Homepage = () => {
   return (

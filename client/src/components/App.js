@@ -8,7 +8,7 @@ import SignInForm from "./SignIn-Up/SignIn";
 import SignUpForm from "./SignIn-Up/SignUp";
 import { useEffect, useState } from "react";
 import { UserProvider } from "./UserContext";
-
+import { IndividualPage } from "./IndividualPage/IndividualPage";
 
 const  App = () => {
   // const [message, setMessage] = useState("No message");
@@ -33,10 +33,8 @@ const  App = () => {
         </Route>
         <Route exact path="/signUp" element={<SignUpForm/>}>
         </Route>
-        <Route path="/individualPage/:">
+        <Route path="/individualPage/:id" element={<IndividualPage/>}>
         </Route>
-   {/* 
-      */}
         <Route path="">404: Oops!</Route> 
       </Routes>
       </UserProvider>
