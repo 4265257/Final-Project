@@ -5,14 +5,14 @@ import { Image } from "cloudinary-react";
 import { Link } from "react-router-dom";
 import { ItemContext } from "../ItemContext";
 const Homepage = () => {
-  const { veggies, fruits, fineHerbes } = useContext(ItemContext);
+  const { veggiesInfo, fruitsInfo, fineHerbesInfo } = useContext(ItemContext);
   return (
     <div>
       <h2 style={{ textAlign: "center", margin: 20 }}>Vegetables</h2>
       <Layout>
-        {veggies.data.map((veggie) => {
+        {veggiesInfo.map((veggie) => {
           return (
-            <ImageArea key={veggie.id} to={`/individualPage/${veggie.id}`}>
+            <ImageArea key={veggie.id} to={`/${veggie.id}`}>
               <Image
                 style={{
                   height: 200,
@@ -27,11 +27,11 @@ const Homepage = () => {
       </Layout>
       <h2 style={{ textAlign: "center", margin: 20 }}>Fines Herbes</h2>
       <Layout>
-        {fineHerbes.data.map((fineHerbe) => {
+        {fineHerbesInfo.map((fineHerbe) => {
           return (
             <ImageArea
               key={fineHerbe.id}
-              to={`/individualPage/${fineHerbe.id}`}
+              to={`/${fineHerbe.id}`}
             >
               <Image
                 style={{
@@ -47,9 +47,9 @@ const Homepage = () => {
       </Layout>
       <h2 style={{ textAlign: "center", margin: 20 }}>Fruits</h2>
       <Layout>
-        {fruits.data.map((fruit) => {
+        {fruitsInfo.map((fruit) => {
           return (
-            <ImageArea key={fruit.id} to={`/individualPage/${fruit.id}`}>
+            <ImageArea key={fruit.id} to={`/${fruit.id}`}>
               <Image
                 style={{
                   height: 200,

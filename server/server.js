@@ -2,7 +2,14 @@ const express = require("express");
 const app = express();
 
 const { login, create, getByEmail } = require("./handlersUser");
-const { getVeggies, getFruits, getFineHerbes } = require("./handlersItems");
+const {
+  getVeggies,
+  getFruits,
+  getFineHerbes,
+  getSingleVeggie,
+  getSingleFruit,
+  getSingleFineHerbe,
+} = require("./handlersItems");
 
 //  const { veggies } = require("./data/veggies");
 //  const { fruits } = require("./data/fruits");
@@ -22,6 +29,9 @@ app.get("/createUser", create);
 app.get("/getVeggies", getVeggies);
 app.get("/getFruits", getFruits);
 app.get("/getFineHerbes", getFineHerbes);
+// app.get("/getVeggie/:id", getSingleVeggie);
+// app.get("/getFruit/:id", getSingleFruit);
+// app.get("/getFineHerbe/:id", getSingleFineHerbe);
 
 // this is our catch all endpoint.
 app.get("*", (req, res) => {

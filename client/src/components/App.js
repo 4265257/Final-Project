@@ -24,11 +24,11 @@ const  App = () => {
         </Route>
         <Route exact path="/signUp" element={<SignUpForm/>}>
         </Route>
-        <Route path="/individualPage/:id" element={<IndividualPage/>}>
+        <Route excat path="/:id" element={<IndividualPage/>}>
         </Route>
         <Route path="">404: Oops!</Route> 
       </Routes>
-      <Footer/>
+{/*       <Footer/> */}
       </ItemProvider>
     </BrowserRouter>
   </div>
