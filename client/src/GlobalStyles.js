@@ -68,6 +68,10 @@ export default createGlobalStyle`
     header{
         height: 50px;
         background-color: var(--secondary-color);
+        position: fixed;
+        margin:0 ;
+        top:0;
+        z-index:1000 
     }
     button{
         border: none;

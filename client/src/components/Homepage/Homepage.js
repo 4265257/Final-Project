@@ -7,7 +7,7 @@ import { ItemContext } from "../ItemContext";
 const Homepage = () => {
   const { veggiesInfo, fruitsInfo, fineHerbesInfo } = useContext(ItemContext);
   return (
-    <div>
+    <HomeArea>
       <h2 style={{ textAlign: "center", margin: 20 }}>Vegetables</h2>
       <Layout>
         {veggiesInfo.map((veggie) => {
@@ -62,11 +62,14 @@ const Homepage = () => {
           );
         })}
       </Layout>
-    </div>
+    </HomeArea>
   );
 };
 
-const HomeArea = styled.div``;
+const HomeArea = styled.div`
+margin-top: 80px;
+
+`;
 const Layout = styled.div`
   display: inline-flex;
   flex-direction: row;
