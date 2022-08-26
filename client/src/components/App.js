@@ -1,39 +1,33 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyles from "../GlobalStyles";
 import Header from "./Header";
-import Homepage from "../components/Homepage/Homepage"
+import Homepage from "../components/Homepage/Homepage";
 import SignInForm from "./SignIn-Up/SignIn";
 import SignUpForm from "./SignIn-Up/SignUp";
 import { useEffect, useState } from "react";
 import { ItemProvider } from "./ItemContext";
 import { IndividualPage } from "./IndividualPage/IndividualPage";
 import Footer from "./Footer";
-
-const  App = () => {
-  
+import Profile from "./Profile";
+const App = () => {
   return (
     <div>
-    <BrowserRouter>
-    <ItemProvider>
-      <GlobalStyles />
-       <Header></Header> 
-      <Routes>
-        <Route exact path="/" element={<Homepage/>}>
-        </Route>
-        <Route exact path="/signIn" element={<SignInForm/>}>
-        </Route>
-        <Route exact path="/signUp" element={<SignUpForm/>}>
-        </Route>
-        <Route excat path="/:id" element={<IndividualPage/>}>
-        </Route>
-        <Route path="">404: Oops!</Route> 
-      </Routes>
-{/*       <Footer/> */}
-      </ItemProvider>
-    </BrowserRouter>
-  </div>
+      <BrowserRouter>
+        <ItemProvider>
+          <GlobalStyles />
+          <Header></Header>
+          <Routes>
+            <Route exact path="/" element={<Homepage />}></Route>
+            <Route exact path="/profile" element={<Profile />}></Route>
+            <Route excat path="/:id" element={<IndividualPage />}></Route>
+            <Route path="">404: Oops!</Route>
+          </Routes>
+          {/*       <Footer/> */}
+        </ItemProvider>
+      </BrowserRouter>
+    </div>
   );
-}
+};
 
 export default App;
 
@@ -42,10 +36,14 @@ export default App;
 /* 
 <div className="App">
 <header className="App-header"> */
-{/*       <img src={logo} className="App-logo" alt="logo" /> */}
+{
+  /*       <img src={logo} className="App-logo" alt="logo" /> */
+}
 // <p>
 
-{/*  {message} */}
+{
+  /*  {message} */
+}
 //     </p>
 //     <a
 //       className="App-link"
@@ -64,4 +62,11 @@ export default App;
 //     .then((data) => setMessage(data.message))
 //     .catch((e) => console.log("Got error", e));
 // }, []);
-    // </div>
+// </div>
+{
+  /* 
+<Route exact path="/signIn" element={<SignInForm/>}>
+</Route>
+<Route exact path="/signUp" element={<SignUpForm/>}>
+</Route> */
+}

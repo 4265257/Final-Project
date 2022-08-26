@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const { login, create, getByEmail } = require("./handlersUser");
+const { addPost } = require("./handlersUser");
 const {
   getVeggies,
   getFruits,
@@ -10,6 +10,7 @@ const {
   getSingleFruit,
   getSingleFineHerbe,
 } = require("./handlersItems");
+
 
 //  const { veggies } = require("./data/veggies");
 //  const { fruits } = require("./data/fruits");
@@ -20,8 +21,13 @@ app.get("/fetch-message", function (req, res) {
   res.status(200).json({ message: "Hello World" });
 });
 
+
+
+//creating a new post on indivivual item pages
+ app.post('/post', addPost)
+
 //end point to add new user
-app.get("/createUser", create);
+//app.get("/createUser", create);
 //app.post("/fetch-message", login);
 //app.get("/fetch-message", getByEmail);
 
@@ -42,6 +48,16 @@ app.get("*", (req, res) => {
 });
 
 app.listen(8000, () => console.log(`Listening on port 8000`));
+
+
+
+
+
+
+
+
+
+
 
 /* const express = require("express");
 const app = express();

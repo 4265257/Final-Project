@@ -9,7 +9,7 @@ export default createGlobalStyle`
       --page-horizontal-padding: 20px;
       --header-height: 50px;
       --max-content-width: 1200px;
-      --heading-font-family: Garamond, Helvetica, sans-serif;
+      --heading-font-family: "Avenir Next, Avenir, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif";
       --user-img-width: 120px;
     }
 

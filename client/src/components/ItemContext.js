@@ -6,11 +6,11 @@ export const ItemProvider = ({ children }) => {
   const [veggies, setVeggies] = useState(null);
   const [fruits, setFruits] = useState(null);
   const [fineHerbes, setFineHerbes] = useState(null);
-  const [veggie, setVeggie] = useState(null);
-  const [fruit, setFruit] = useState(null);
-  const [fineHerbe, setFineHerbe] = useState(null);
+  const [comment, setComment] = useState({ status: "" });
+  const [error, setError] = useState(false);
+
   //const { id } = useParams();
-  
+
   useEffect(() => {
     fetch("/getVeggies")
       .then((res) => res.json())
@@ -32,27 +32,30 @@ export const ItemProvider = ({ children }) => {
         setFineHerbes(data);
       });
   }, []);
-  /* useEffect(() => {
-    fetch(`/getVeggie/${ id }`)
+
+  const handleAfterPost = async () => {
+    const data = { status: comment };
+    const response = await fetch("/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    })
       .then((res) => res.json())
-      .then((data) => {
-        setVeggie(data);
+      .then((data) => setComment(data))
+      .catch((error) => {
+        console.error("Error:", error);
       });
-  }, []);
-  useEffect(() => {
-    fetch(`/getFruit/${ id }`)
-      .then((res) => res.json())
-      .then((data) => {
-        setFruit(data);
-      });
-  }, []);
-  useEffect(() => {
-    fetch(`/getFineHerbe/${ id }`)
-      .then((res) => res.json())
-      .then((data) => {
-        setFineHerbe(data);
-      });
-  }, []); */
+    const fetchData = await response.json();
+    console.log("fetchData ", fetchData);
+    if (fetchData) {
+      localStorage.setItem("comment", comment);
+    } else {
+      setError(true);
+    }
+  };
   if (!veggies) {
     return null;
   }
@@ -62,33 +65,81 @@ export const ItemProvider = ({ children }) => {
   if (!fineHerbes) {
     return null;
   }
-  /* if (!veggie) {
-    return null;
-  }
-  if (!fruit) {
-    return null;
-  }
-  if (!fineHerbe) {
-    return null;
-  } */
- const veggiesInfo = veggies.data
- const fineHerbesInfo = fineHerbes.data
- const fruitsInfo = fruits.data 
-//  const veggieInfo = veggie.data
-//  const fineHerbeInfo = fineHerbe.data
-//  const fruitInfo = fruit.data 
+  const veggiesInfo = veggies.data;
+  const fineHerbesInfo = fineHerbes.data;
+  const fruitsInfo = fruits.data;
   return (
     <ItemContext.Provider
       value={{
-        veggiesInfo, 
-        fineHerbesInfo, 
-        fruitsInfo, 
-     /*    veggieInfo,
-        fineHerbeInfo,
-        fruitInfo */
+        veggiesInfo,
+        fineHerbesInfo,
+        fruitsInfo,
+        handleAfterPost,
+        setComment,
       }}
     >
       {children}
     </ItemContext.Provider>
   );
 };
+
+/* const handleAfterPost = () => {
+  const data = { status: comment };
+
+  fetch("/post", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      setComment(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}; */
+
+/*    veggieInfo,
+fineHerbeInfo,
+fruitInfo */
+// const [veggie, setVeggie] = useState(null);
+// const [fruit, setFruit] = useState(null);
+// const [fineHerbe, setFineHerbe] = useState(null);
+//  const veggieInfo = veggie.data
+//  const fineHerbeInfo = fineHerbe.data
+//  const fruitInfo = fruit.data
+
+/* useEffect(() => {
+  fetch(`/getVeggie/${ id }`)
+  .then((res) => res.json())
+  .then((data) => {
+    setVeggie(data);
+  });
+}, []);
+useEffect(() => {
+  fetch(`/getFruit/${ id }`)
+  .then((res) => res.json())
+  .then((data) => {
+    setFruit(data);
+  });
+}, []);
+useEffect(() => {
+  fetch(`/getFineHerbe/${ id }`)
+  .then((res) => res.json())
+  .then((data) => {
+    setFineHerbe(data);
+  });
+}, []); */
+/* if (!veggie) {
+  return null;
+}
+if (!fruit) {
+  return null;
+}
+if (!fineHerbe) {
+  return null;
+} */

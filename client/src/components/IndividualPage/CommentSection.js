@@ -3,59 +3,31 @@ import { ItemContext } from "../ItemContext";
 import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { CommentSection } from "./CommentSection";
-export const IndividualPage = () => {
+
+export const CommentSection = () => {
   const {
-    veggiesInfo,
-    fruitsInfo,
-    fineHerbesInfo,
     setComment,
     handleAfterPost,
   } = useContext(ItemContext);
-  const { id } = useParams();
-  // const idOfItem =  { id }
-  const veggieItem = veggiesInfo.find((veggie) => veggie.id == id);
-  const fruitItem = fruitsInfo.find((fruit) => fruit.id == id);
-  const fineHerbeItem = fineHerbesInfo.find((fineHerbe) => fineHerbe.id == id);
-
+  
   return (
     <Wrapper>
-      {veggieItem && (
-        <FullSection>
-          <ItemPage>
-            <ImageFruit src={veggieItem.avatarPic}></ImageFruit>
-            <DescriptionSection>
-              <div>
-                <h1>{veggieItem.name}</h1>
-                <Description>{veggieItem.description}</Description>
-              </div>
-            </DescriptionSection>
-          </ItemPage>
-          <CommentSection />
-        </FullSection>
-      )}
-      {fruitItem && (
-        <ItemPage>
-          <ImageFruit src={fruitItem.avatarPic}></ImageFruit>
-          <DescriptionSection>
-            <div>
-              <h1>{fruitItem.name}</h1>
-              <Description>{fruitItem.description}</Description>
-            </div>
-          </DescriptionSection>
-        </ItemPage>
-      )}
-      {fineHerbeItem && (
-        <ItemPage>
-          <ImageFruit src={fineHerbeItem.avatarPic}></ImageFruit>
-          <DescriptionSection>
-            <div>
-              <h1>{fineHerbeItem.name}</h1>
-              <Description>{fineHerbeItem.description}</Description>
-            </div>
-          </DescriptionSection>
-        </ItemPage>
-      )}
+              <Form onSubmit={handleAfterPost}>
+            <Input
+              type="text"
+              onChange={(e) => {
+                e.target.reset();
+                setComment(e.target.value);
+              }}
+            />
+            <Input
+              style={{ backgroundColor: "#e0edf4", border: "none", padding: 5 }}
+              type="submit"
+            />
+          </Form>
+          {/* <PostButtton type="submit" >
+            Post
+          </PostButtton> */}
     </Wrapper>
   );
 };
