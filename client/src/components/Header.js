@@ -10,7 +10,7 @@ const Header = () => {
   // const { currentUser, signOutFunction } = useContext(UserContext);
   //const { isLoading, error } = useAuth0;
 
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   return (
     <HeaderArea>

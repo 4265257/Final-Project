@@ -6,6 +6,7 @@ import SignInForm from "./SignIn-Up/SignIn";
 import SignUpForm from "./SignIn-Up/SignUp";
 import { useEffect, useState } from "react";
 import { ItemProvider } from "./ItemContext";
+import { UserProvider } from "./UserContext";
 import { IndividualPage } from "./IndividualPage/IndividualPage";
 import Footer from "./Footer";
 import Profile from "./Profile";
@@ -14,15 +15,17 @@ const App = () => {
     <div>
       <BrowserRouter>
         <ItemProvider>
-          <GlobalStyles />
-          <Header></Header>
-          <Routes>
-            <Route exact path="/" element={<Homepage />}></Route>
-            <Route exact path="/profile" element={<Profile />}></Route>
-            <Route excat path="/:id" element={<IndividualPage />}></Route>
-            <Route path="">404: Oops!</Route>
-          </Routes>
-          {/*       <Footer/> */}
+          <UserProvider>
+            <GlobalStyles />
+            <Header></Header>
+            <Routes>
+              <Route exact path="/" element={<Homepage />}></Route>
+              <Route exact path="/profile" element={<Profile />}></Route>
+              <Route excat path="/:id" element={<IndividualPage />}></Route>
+              <Route path="">404: Oops!</Route>
+            </Routes>
+            {/*       <Footer/> */}
+          </UserProvider>
         </ItemProvider>
       </BrowserRouter>
     </div>

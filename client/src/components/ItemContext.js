@@ -6,9 +6,7 @@ export const ItemProvider = ({ children }) => {
   const [veggies, setVeggies] = useState(null);
   const [fruits, setFruits] = useState(null);
   const [fineHerbes, setFineHerbes] = useState(null);
-  const [comment, setComment] = useState({ status: "" });
-  const [error, setError] = useState(false);
-
+ 
   //const { id } = useParams();
 
   useEffect(() => {
@@ -33,29 +31,7 @@ export const ItemProvider = ({ children }) => {
       });
   }, []);
 
-  const handleAfterPost = async () => {
-    const data = { status: comment };
-    const response = await fetch("/post", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => setComment(data))
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-    const fetchData = await response.json();
-    console.log("fetchData ", fetchData);
-    if (fetchData) {
-      localStorage.setItem("comment", comment);
-    } else {
-      setError(true);
-    }
-  };
+
   if (!veggies) {
     return null;
   }
@@ -74,8 +50,6 @@ export const ItemProvider = ({ children }) => {
         veggiesInfo,
         fineHerbesInfo,
         fruitsInfo,
-        handleAfterPost,
-        setComment,
       }}
     >
       {children}

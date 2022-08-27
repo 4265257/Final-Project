@@ -1,33 +1,39 @@
 import React from "react";
-import { ItemContext } from "../ItemContext";
+import { UserContext } from "../UserContext";
 import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
 export const CommentSection = () => {
-  const {
-    setComment,
-    handleAfterPost,
-  } = useContext(ItemContext);
-  
+  const { comment, setComment, handleAfterPost } = useContext(UserContext);
+//console.log("comment", comment)
   return (
     <Wrapper>
-              <Form onSubmit={handleAfterPost}>
-            <Input
-              type="text"
-              onChange={(e) => {
-                e.target.reset();
-                setComment(e.target.value);
-              }}
-            />
-            <Input
-              style={{ backgroundColor: "#e0edf4", border: "none", padding: 5 }}
-              type="submit"
-            />
-          </Form>
-          {/* <PostButtton type="submit" >
+      <Form onSubmit={(e)=>{
+        e.preventDefault()
+        handleAfterPost()
+        e.target.reset();
+        }}>
+        <Input
+          type="text"
+          onChange={(e) => {
+            //e.target.reset();
+            setComment(e.target.value);
+          }}
+        />
+         <Input
+          style={{ backgroundColor: "#e0edf4", border: "none", padding: 5 }}
+          type="submit"
+         
+        /> 
+       
+      {/* <PostButtton type="submit"  onClick={setComment("")}>
             Post
           </PostButtton> */}
+      </Form>
+      <CommentSectionPostAre>
+ {comment} 
+      </CommentSectionPostAre>
     </Wrapper>
   );
 };
@@ -45,8 +51,8 @@ const ItemPage = styled.div`
   align-content: center;
   align-items: center;
 `;
-const DescriptionSection = styled.div`
-  display: flex;
+const CommentSectionPostAre = styled.div`
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: left;
@@ -54,7 +60,7 @@ const DescriptionSection = styled.div`
   text-align: left;
   margin-left: 40px;
   overflow-wrap: break-word;
-  width: 400px;
+  width: 400px; */
 `;
 
 const Wrapper = styled.div`
@@ -80,7 +86,7 @@ const Textarea = styled.textarea`
   height: 100px;
 `;
 
-const PostButtton = styled.input`
+const PostButtton = styled.button`
   width: 20%;
   height: 10%;
 `;

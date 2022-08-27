@@ -11,7 +11,7 @@ const {
   getSingleFineHerbe,
 } = require("./handlersItems");
 
-
+app.use(express.json())
 //  const { veggies } = require("./data/veggies");
 //  const { fruits } = require("./data/fruits");
 //  const { fineHerbes } = require("./data/fineHerbes");
@@ -25,6 +25,17 @@ app.get("/fetch-message", function (req, res) {
 
 //creating a new post on indivivual item pages
  app.post('/post', addPost)
+/*  app.post('/:postId', async (req, res) => {
+const postId = req.params.postId
+const comments = await Comments.findAll({where : { PostId: postId}});
+res.json(comments)
+
+ } ) */
+
+
+
+
+
 
 //end point to add new user
 //app.get("/createUser", create);

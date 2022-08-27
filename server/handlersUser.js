@@ -10,7 +10,8 @@ const addPost = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   await client.connect();
   console.log("connected");
-  const db = client.db("db-name");
+  const db = await client.db("db-name");
+  console.log("req.body", req.body)
   const comment = await db.collection("comments").insertOne(req.body);
   res.status(201).json({ status: 201, data: comment });
   client.close();

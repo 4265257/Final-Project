@@ -4,13 +4,12 @@ import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { CommentSection } from "./CommentSection";
+
 export const IndividualPage = () => {
   const {
     veggiesInfo,
     fruitsInfo,
     fineHerbesInfo,
-    setComment,
-    handleAfterPost,
   } = useContext(ItemContext);
   const { id } = useParams();
   // const idOfItem =  { id }
