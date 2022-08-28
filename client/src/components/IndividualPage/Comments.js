@@ -2,48 +2,25 @@ import React from "react";
 import { UserContext } from "../UserContext";
 import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
-import { Comments } from "./Comments";
 import { useParams } from "react-router-dom";
 
-export const CommentSection = () => {
-  const { comment, setComment, handleAfterPost } = useContext(UserContext);
+export const Comments = () => {
+  const { comments } = useContext(UserContext);
   const { id } = useParams();
-/*   console.log("id", id)
-*/
- // console.log("comment", comment) 
-  return (
-    <Wrapper>
-      <Form onSubmit={(e)=>{
-        e.preventDefault()
-        handleAfterPost(id)
-        e.target.reset();
-        }}>
-        <Input
-          type="text"
-          onChange={(e) => {
-            //e.target.reset();
-            setComment(e.target.value);
-          }}
-        />
-         <Input
-          style={{ backgroundColor: "#e0edf4", border: "none", padding: 5 }}
-          type="submit"
-         
-        /> 
-       
-      {/* <PostButtton type="submit"  onClick={setComment("")}>
-            Post
-          </PostButtton> */}
-      </Form>
-      <CommentSectionPostAre>
-<Comments/>
-{/* <div>
+  console.log("comments", comments.data);
+  if (comments) {
+    return null;
+  }
+  const commentsArray = comments.data;
 
-  {comment}  
-</div> */}
-      </CommentSectionPostAre>
-    </Wrapper>
-  );
+
+/*   const singleCommentsOfItems = commentsArray.map((comment) => {
+    console.log("comment", comment)
+    return comment.idItem == id;
+  });
+  console.log("singleCommentsOfItems", singleCommentsOfItems */
+
+  return <Wrapper></Wrapper>;
 };
 
 const ImageFruit = styled.img`

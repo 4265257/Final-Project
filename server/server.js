@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const { addPost } = require("./handlersUser");
+const { addPost, getPosts } = require("./handlersUser");
 const {
   getVeggies,
   getFruits,
@@ -21,21 +21,15 @@ app.get("/fetch-message", function (req, res) {
   res.status(200).json({ message: "Hello World" });
 });
 
-
-
 //creating a new post on indivivual item pages
- app.post('/post', addPost)
+ app.post('/addPost', addPost)
+ app.get('/getPosts', getPosts)
+
 /*  app.post('/:postId', async (req, res) => {
 const postId = req.params.postId
 const comments = await Comments.findAll({where : { PostId: postId}});
 res.json(comments)
-
  } ) */
-
-
-
-
-
 
 //end point to add new user
 //app.get("/createUser", create);

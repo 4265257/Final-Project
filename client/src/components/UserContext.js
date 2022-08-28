@@ -7,13 +7,25 @@ export const UserContext = createContext(null);
 export const UserProvider = ({ children }) => {
   const [comment, setComment] = useState({ status: "" });
   const [error, setError] = useState(false);
-  const { user, isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
+  const [ comments, setComments ] = useState([])
+  /// const { id } = useParams();
+//console.log("id", id) 
+useEffect(() => {
+  fetch("/getPosts")
+    .then((res) => res.json())
+    .then((data) => {
+      setComments(data);
+    });
+}, []);
 
-  const handleAfterPost = async () => {
-  
+
+//console.log("comment", comment) 
+
+  const handleAfterPost = async (id) => {
     // const data = { status: comment };
      //console.log("data",data)
-     const response = await fetch("/post", {
+     const response = await fetch("/addPost", {
        method: "POST",
        headers: {
          "Content-Type": "application/json",
@@ -21,7 +33,8 @@ export const UserProvider = ({ children }) => {
        },
        body: JSON.stringify({ 
         user:user,
-        status: comment 
+        status: comment,
+        idItem: id
       }),
      })
  /*       .then((res) => res.json())
@@ -29,20 +42,22 @@ export const UserProvider = ({ children }) => {
        .catch((error) => {
          console.error("Error:", error);
        });
-     const fetchData = await response.json();
+ /*     const fetchData = await response.json();
      console.log("fetchData ", fetchData);
      if (fetchData) {
        localStorage.setItem("comment", comment);
      } else {
        setError(true);
-     }
+     } */
    };
   return (
     <UserContext.Provider
       value={{
         handleAfterPost,
         setComment,
-        comment
+        comment,
+        comments
+        //id
       }}
       >
       {children}

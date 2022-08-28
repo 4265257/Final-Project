@@ -16,9 +16,27 @@ const addPost = async (req, res) => {
   res.status(201).json({ status: 201, data: comment });
   client.close();
 };
+// returns all comments
+const getPosts = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = client.db("db-name");
+  const posts = await db.collection("comments").find().toArray();
+  if (posts.length) {
+    res.status(200).json({ status: 200, data: posts });
+  } else if (posts.length === 0) {
+    res
+      .status(404)
+      .json({ status: 404, data: posts, message: "Not found" });
+  }
+  client.close();
+};
 
-//getCollection("exercise_1.3");
-module.exports = { addPost };
+
+
+
+
+module.exports = { addPost, getPosts };
 
 
 
