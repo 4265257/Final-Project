@@ -1,5 +1,6 @@
 import React from "react";
 import { ItemContext } from "../ItemContext";
+import { UserContext } from "../UserContext";
 import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
@@ -11,6 +12,8 @@ export const IndividualPage = () => {
     fruitsInfo,
     fineHerbesInfo,
   } = useContext(ItemContext);
+  const {
+    handleAfterFavorite  } = useContext(UserContext);
   const { id } = useParams();
   // const idOfItem =  { id }
   const veggieItem = veggiesInfo.find((veggie) => veggie.id == id);
@@ -26,6 +29,7 @@ export const IndividualPage = () => {
             <DescriptionSection>
               <div>
                 <h1>{veggieItem.name}</h1>
+                <FavoriteButton onClick={()=>handleAfterFavorite(id)}>Add to favorite</FavoriteButton>
                 <Description>{veggieItem.description}</Description>
               </div>
             </DescriptionSection>
@@ -107,7 +111,7 @@ const Textarea = styled.textarea`
   height: 100px;
 `;
 
-const PostButtton = styled.input`
+const FavoriteButton = styled.button`
   width: 20%;
   height: 10%;
 `;

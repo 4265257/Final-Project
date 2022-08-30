@@ -1,14 +1,14 @@
 const express = require("express");
 const app = express();
 
-const { addPost, getPosts } = require("./handlersUser");
+const { addPost, getPosts, addFavorite, getFavorites } = require("./handlersUser");
 const {
   getVeggies,
   getFruits,
   getFineHerbes,
-  getSingleVeggie,
-  getSingleFruit,
-  getSingleFineHerbe,
+//  getSingleVeggie,
+//  getSingleFruit,
+ // getSingleFineHerbe,
 } = require("./handlersItems");
 
 app.use(express.json())
@@ -24,6 +24,8 @@ app.get("/fetch-message", function (req, res) {
 //creating a new post on indivivual item pages
  app.post('/addPost', addPost)
  app.get('/getPosts', getPosts)
+ app.post('/addFavorite', addFavorite)
+ app.get('/getFavorites', getFavorites)
 
 /*  app.post('/:postId', async (req, res) => {
 const postId = req.params.postId

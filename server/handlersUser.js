@@ -5,15 +5,24 @@ const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
-
+//adding comments 
 const addPost = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   await client.connect();
   console.log("connected");
   const db = await client.db("db-name");
-  console.log("req.body", req.body)
   const comment = await db.collection("comments").insertOne(req.body);
   res.status(201).json({ status: 201, data: comment });
+  client.close();
+};
+//adding favorites
+const addFavorite = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+  console.log("connected");
+  const db = await client.db("db-name");
+  const favorite = await db.collection("favorites").insertOne(req.body);
+  res.status(201).json({ status: 201, data: favorite });
   client.close();
 };
 // returns all comments
@@ -32,11 +41,24 @@ const getPosts = async (req, res) => {
   client.close();
 };
 
+const getFavorites = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = client.db("db-name");
+  const favorites = await db.collection("favorites").find().toArray();
+  if (favorites.length) {
+    res.status(200).json({ status: 200, data: favorites });
+  } else if (favorites.length === 0) {
+    res
+      .status(404)
+      .json({ status: 404, data: favorites, message: "Not found" });
+  }
+  client.close();
+};
 
 
 
-
-module.exports = { addPost, getPosts };
+module.exports = { addPost, getPosts, addFavorite, getFavorites };
 
 
 

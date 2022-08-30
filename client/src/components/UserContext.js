@@ -8,58 +8,83 @@ export const UserProvider = ({ children }) => {
   const [comment, setComment] = useState({ status: "" });
   const [error, setError] = useState(false);
   const { user } = useAuth0();
-  const [ comments, setComments ] = useState([])
+  const [comments, setComments] = useState([]);
+  const [favorites, setFavorites] = useState(false);
+
+
   /// const { id } = useParams();
-//console.log("id", id) 
-useEffect(() => {
-  fetch("/getPosts")
-    .then((res) => res.json())
-    .then((data) => {
-      setComments(data);
+  //console.log("id", id)
+  useEffect(() => {
+    fetch("/getPosts")
+      .then((res) => res.json())
+      .then((data) => {
+        setComments(data);
+      });
+  }, [comment]);
+
+  useEffect(() => {
+    fetch("/getFavorites")
+      .then((res) => res.json())
+      .then((data) => {
+        setFavorites(data);
+      });
+  }, []);
+
+  const handleAfterFavorite = async (id) => {
+    const response = await fetch("/addFavorite", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        user: user,
+        favorite: true,
+        idItem: id,
+      }),
+    })
+    // .then((response) => response.json())
+    // .then((data) => {
+    //   setFavorite(true)
+    // })
+    .catch((error) => {
+      console.error("Error:", error);
     });
-}, []);
-
-
-//console.log("comment", comment) 
+  };
 
   const handleAfterPost = async (id) => {
-    // const data = { status: comment };
-     //console.log("data",data)
-     const response = await fetch("/addPost", {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-         Accept: "application/json",
-       },
-       body: JSON.stringify({ 
-        user:user,
+    const response = await fetch("/addPost", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        user: user,
         status: comment,
-        idItem: id
+        idItem: id,
       }),
-     })
- /*       .then((res) => res.json())
-       .then((data) => setComment(data)) */
-       .catch((error) => {
-         console.error("Error:", error);
-       });
- /*     const fetchData = await response.json();
-     console.log("fetchData ", fetchData);
-     if (fetchData) {
-       localStorage.setItem("comment", comment);
-     } else {
-       setError(true);
-     } */
-   };
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        localStorage.setItem("user", user);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   return (
     <UserContext.Provider
       value={{
         handleAfterPost,
+        handleAfterFavorite,
         setComment,
         comment,
-        comments
-        //id
-      }}
-      >
+        comments,
+        favorites
+        }}
+    >
       {children}
     </UserContext.Provider>
   );
@@ -98,3 +123,10 @@ useEffect(() => {
 //   localStorage.removeItem("user");
 //   setCurrentUser(null);
 // };
+/*     const fetchData = await response.json();
+                console.log("fetchData ", fetchData);
+                if (fetchData) {
+                  localStorage.setItem("comment", comment);
+                } else {
+                  setError(true);
+                } */
