@@ -15,5 +15,6 @@ export const LoginButton = () => {
 };
 
 const Login = styled.button`
-font-size: 20px;
+//font-size: 20px;
+background-color: var(--primary-color);
 `

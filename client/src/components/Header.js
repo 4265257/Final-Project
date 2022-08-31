@@ -18,14 +18,13 @@ const Header = () => {
         <h1>Garden Helper</h1>
       </LogoArea>
       <SignInOutArea>
+        {isAuthenticated &&
+        <ProfileLoginArea to={"/profile"}>
+          <p>Profile</p>
+        </ProfileLoginArea>
+        }
         <LoginButton />
         <LogoutButton />
-        {isAuthenticated &&
-
-        <LogoArea to={"/profile"}>
-          <p>Profile</p>
-        </LogoArea>
-        }
       </SignInOutArea>
     </HeaderArea>
   );
@@ -37,7 +36,7 @@ const HeaderArea = styled.header`
   //position: fixed;
   //margin:0 ;
   //top:0;
-  height: 80px;
+  height: 60px;
 `;
 const Button = styled.button`
   background-color: var(--primary-color);
@@ -60,8 +59,17 @@ const CartArea = styled(Link)`
 const LogoArea = styled(Link)`
   margin: 10px;
 `;
+const ProfileLoginArea = styled(Link)`
+  margin-right: 10px;
+  padding: 2px 6px;
+  color: white;
+`;
 const SignInOutArea = styled.div`
-  margin: 10px 10px;
+  //margin: 10px 10px;
+  display: inline-flex;
+  flex-direction: row;
+  margin-top: 15px;
+  margin-right: 10px;
 `;
 
 export default Header;

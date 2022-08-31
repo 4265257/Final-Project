@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const { addPost, getPosts, addFavorite, getFavorites } = require("./handlersUser");
+const { addPost, getPosts, addFavorite, getFavorites, deleteComment, deleteFavorite } = require("./handlersUser");
 const {
   getVeggies,
   getFruits,
@@ -26,6 +26,8 @@ app.get("/fetch-message", function (req, res) {
  app.get('/getPosts', getPosts)
  app.post('/addFavorite', addFavorite)
  app.get('/getFavorites', getFavorites)
+ app.delete('/deleteComment', deleteComment)
+ app.delete('/deleteFavorite', deleteFavorite)
 
 /*  app.post('/:postId', async (req, res) => {
 const postId = req.params.postId

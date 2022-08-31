@@ -14,5 +14,6 @@ export const LogoutButton = () => {
 };
 
 const Logout = styled.button`
-font-size: 20px;
+//font-size: 20px;
+background-color: var(--primary-color);
 `

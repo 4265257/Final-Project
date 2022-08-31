@@ -13,7 +13,7 @@ export const IndividualPage = () => {
     fineHerbesInfo,
   } = useContext(ItemContext);
   const {
-    handleAfterFavorite  } = useContext(UserContext);
+    handleAfterFavorite, favoriteStatus, setFavoriteStatus  } = useContext(UserContext);
   const { id } = useParams();
   // const idOfItem =  { id }
   const veggieItem = veggiesInfo.find((veggie) => veggie.id == id);
@@ -27,11 +27,14 @@ export const IndividualPage = () => {
           <ItemPage>
             <ImageFruit src={veggieItem.avatarPic}></ImageFruit>
             <DescriptionSection>
-              <div>
-                <h1>{veggieItem.name}</h1>
-                <FavoriteButton onClick={()=>handleAfterFavorite(id)}>Add to favorite</FavoriteButton>
+              <TitleFavoriteSection>
+                <h2>{veggieItem.name}</h2>
+                {/* {favoriteStatus == true &&
+
+                } */}
+                <FavoriteButton onClick={()=>handleAfterFavorite(id)} disabled={favoriteStatus}>Add to favorite</FavoriteButton>
+              </TitleFavoriteSection>
                 <Description>{veggieItem.description}</Description>
-              </div>
             </DescriptionSection>
           </ItemPage>
           <CommentSection />
@@ -75,6 +78,7 @@ const ItemPage = styled.div`
   justify-content: center;
   align-content: center;
   align-items: center;
+  margin-bottom: 20px;
 `;
 const DescriptionSection = styled.div`
   display: flex;
@@ -83,16 +87,17 @@ const DescriptionSection = styled.div`
   align-content: left;
   align-items: center;
   text-align: left;
-  margin-left: 40px;
+ // margin-left: 40px;
   overflow-wrap: break-word;
   width: 400px;
 `;
 
 const Wrapper = styled.div`
-  height: 60px;
-  margin-top: 150px;
+   height: auto;
+   margin-top: 100px;
+  /*
   margin-left: auto;
-  margin-left: auto;
+  margin-left: auto;  */
 `;
 const Description = styled.p`
   width: 50%;
@@ -112,13 +117,18 @@ const Textarea = styled.textarea`
 `;
 
 const FavoriteButton = styled.button`
-  width: 20%;
+  width: 80%;
   height: 10%;
+  color: white;
+  background-color:var(--secondary-color); 
+  border-radius: 5px;
+  margin-left: 10px;
+  padding: 5px;
 `;
 
-const Form = styled.form`
+const TitleFavoriteSection = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 `;
 

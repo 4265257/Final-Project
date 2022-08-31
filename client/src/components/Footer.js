@@ -8,13 +8,13 @@ const Footer = () => (
 );
 
 const Wrapper = styled.footer`
-  display: flex;
+ // display: flex;
   height: 60px;
 `;
 
-const Text = styled.p`
+const Text = styled.div`
   font-size: 36px;
-  text-align: center;
+ // text-align: center;
  
 `;
 

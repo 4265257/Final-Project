@@ -4,13 +4,13 @@ export const breakpoints = { tablet: "600px" };
 
 export default createGlobalStyle`
     :root {
-      --primary-color: 	#faefee;
-      --secondary-color : #e0edf4;
-      --page-horizontal-padding: 20px;
-      --header-height: 50px;
-      --max-content-width: 1200px;
+      --primary-color: #44963A;
+      --secondary-color : #3A1D00;
+      //--page-horizontal-padding: 20px;
+      //--header-height: 50px;
+      --max-content-width: 2200px;
       --heading-font-family: "Avenir Next, Avenir, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif";
-      --user-img-width: 120px;
+      //--user-img-width: 120px;
     }
 
     html, body, div, span, applet, object, iframe,
@@ -36,13 +36,14 @@ export default createGlobalStyle`
     /* HTML5 display-role reset for older browsers */
     article, aside, details, figcaption, figure,
     footer, header, hgroup, menu, nav, section {
-        //display: block;
-        position:relative
+        display: block;
     }
     body {
-        line-height: 1;
+        //line-height: 1;
         background-color: white; 
-        min-height: 1000px;   
+        height: auto;   
+        position: relative;
+        //min-height: 70%;
     }
     ol, ul {
         list-style: none;
@@ -57,17 +58,20 @@ export default createGlobalStyle`
     }
     h1, h2, h3 {
         font-family: var(--heading-font-family);
-        color: black;
+        text-align: center;
+       // color: black;
     }
     h1 {
       font-size: 35px;
+      color: white;
     }
     h2{
         font-size: 25px;
+        color: black;
     }
     header{
         height: 50px;
-        background-color: var(--secondary-color);
+        background-color: var(--primary-color);
         position: fixed;
         margin:0 ;
         top:0;
@@ -75,10 +79,12 @@ export default createGlobalStyle`
     }
     button{
         border: none;
-        border-radius: 5px;
+        font-size: 15px;
+        color: white;
+       // border-radius: 5px;
     }
     div, p, button, span, input {
-        color: black;
+       // color: black;
         font-family: var(--heading-font-family);
         
     }
@@ -87,12 +93,15 @@ export default createGlobalStyle`
         text-decoration: none;
     }
     footer {
-        left: 0;
-        bottom: 0;
+        //position:absolute;
+        //position: relative;
+        /* left: 0;
+        bottom: 0; */
         width: 100%;
-        background-color: var(--secondary-color);
+        background-color: var(--primary-color);
         text-align: center;
-}
-
-
+        color: white;
+        margin-top: auto;
+    }
+   
 `;

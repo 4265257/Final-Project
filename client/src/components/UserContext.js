@@ -6,11 +6,11 @@ import { useParams } from "react-router-dom";
 export const UserContext = createContext(null);
 export const UserProvider = ({ children }) => {
   const [comment, setComment] = useState({ status: "" });
-  const [error, setError] = useState(false);
+  //const [error, setError] = useState(false);
   const { user } = useAuth0();
   const [comments, setComments] = useState([]);
   const [favorites, setFavorites] = useState(false);
-
+  const [favoriteStatus, setFavoriteStatus] = useState(false);
 
   /// const { id } = useParams();
   //console.log("id", id)
@@ -28,7 +28,7 @@ export const UserProvider = ({ children }) => {
       .then((data) => {
         setFavorites(data);
       });
-  }, []);
+  }, [favoriteStatus]);
 
   const handleAfterFavorite = async (id) => {
     const response = await fetch("/addFavorite", {
@@ -43,13 +43,13 @@ export const UserProvider = ({ children }) => {
         idItem: id,
       }),
     })
-    // .then((response) => response.json())
-    // .then((data) => {
-    //   setFavorite(true)
-    // })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        setFavoriteStatus(true);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   const handleAfterPost = async (id) => {
@@ -73,6 +73,44 @@ export const UserProvider = ({ children }) => {
         console.error("Error:", error);
       });
   };
+  //console.log("favorites", favorites)
+
+  const handleAfterDeletePost = async (id) => {
+    const response = await fetch("/deleteComment", {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        user: user,
+        status: comment,
+        idItem: id,
+      }),
+    })
+      .then((res) => res.text())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  //   useEffect(() => {
+  //     fetch('/deleteComment', { method: 'DELETE' })
+  //         .then(() => setStatus('Delete successful'));
+  // }, []);
+
+  const handleAfterDeleteFavorite = async (id) => {
+    fetch("/deleteFavorite", {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setFavoriteStatus(false);
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <UserContext.Provider
@@ -82,8 +120,12 @@ export const UserProvider = ({ children }) => {
         setComment,
         comment,
         comments,
-        favorites
-        }}
+        favorites,
+        handleAfterDeletePost,
+        handleAfterDeleteFavorite,
+        setFavoriteStatus,
+        favoriteStatus,
+      }}
     >
       {children}
     </UserContext.Provider>

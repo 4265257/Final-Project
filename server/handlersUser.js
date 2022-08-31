@@ -40,7 +40,7 @@ const getPosts = async (req, res) => {
   }
   client.close();
 };
-
+//returns all favorites
 const getFavorites = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   await client.connect();
@@ -55,10 +55,41 @@ const getFavorites = async (req, res) => {
   }
   client.close();
 };
+//delete comment
+const deleteComment = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    await client.connect();
+    const db = client.db("db-name");
+    const { _id } = req.params;
+    const result = await db.collection("comments").deleteOne({ _id });
+    res.status(204).json({ status: 204, data: result });
+  } catch (err) {
+    res.status(500).json({ status: 500, data: req.body, message: err.message });
+    console.log(err.stack);
+  }
+  client.close();
+};
+//delete favorite
+const deleteFavorite = async (req, res) => {
+ const client = new MongoClient(MONGO_URI, options);
+  try {
+    await client.connect();
+    const db = client.db("db-name");
+    const { _id } = req.params;
+    const result = await db.collection("favorites").deleteOne({ _id });
+    res.status(204).json({ status: 204, data: result });
+  } catch (err) {
+    res.status(500).json({ status: 500, data: req.body, message: err.message });
+    console.log(err.stack);
+  }
+  client.close();
+};
 
 
 
-module.exports = { addPost, getPosts, addFavorite, getFavorites };
+
+module.exports = { addPost, getPosts, addFavorite, getFavorites, deleteComment, deleteFavorite };
 
 
 

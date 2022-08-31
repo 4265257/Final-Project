@@ -68,7 +68,7 @@ const Homepage = () => {
 
 const HomeArea = styled.div`
 margin-top: 80px;
-
+height: fit-content;
 `;
 const Layout = styled.div`
   display: inline-flex;

@@ -24,10 +24,10 @@ const App = () => {
               <Route excat path="/:id" element={<IndividualPage />}></Route>
               <Route path="">404: Oops!</Route>
             </Routes>
-            {/*       <Footer/> */}
           </UserProvider>
         </ItemProvider>
       </BrowserRouter>
+     <Footer />
     </div>
   );
 };
