@@ -42,22 +42,27 @@ return veggieItems
 })
 console.log("FavoriteIdItem",FavoriteIdItemVeggies)
 return (
-    <ProfileArea>
-      <h2>Profile of user </h2>
+    <Wrapper>
       {isAuthenticated && (
-        <Wrapper>
-          <article>
-            {user?.picture && <img  src={user.picture} alt={user?.name} />}
-            {!user.picture && <img src={PicUser} alt={user?.name} />}
-            <h2>{user?.name}</h2>
-            <ul>
+        <ProfileArea>
+          <h2>Profile of user </h2>
+          <ProfileSection>
+            {user?.picture && <ImageUser  src={user.picture} alt={user?.name} />}
+            {!user.picture && <ImageUser src={PicUser} alt={user?.name} />}
+            <h2      style={{
+            padding: 10,
+          }}>{user?.name}</h2>
+{/*             <ul>
               {Object.keys(user).map((ObjKey, i) => {
                 <li>
                   {ObjKey}: {user[ObjKey]}
                 </li>;
               })}
-            </ul>
-          </article>
+            </ul> */}
+          </ProfileSection>
+            <h2      style={{
+              padding: 10,
+            }}>Favorites</h2>
           <FavoriteArea>
 {/*              {filteredFavoritesArraySocial.map((favorite)=>{
                return <div>{favorite.idItem}</div>
@@ -67,47 +72,64 @@ return (
   { filteredFavoritesArraySocial.map((favorite)=>{
     const veggieItems = veggiesInfo.find((veggie) => veggie.id == favorite.idItem);
     return (
-      <div>
-
+      <RemoveImageArea>
       <ImageArea key={veggieItems.id} to={`/${veggieItems.id}`}>
         <Image
           style={{
             height: 200,
-          }}
+            }}
           cloudName="yarabrek"
           publicId={veggieItems.avatarPic}
         />
         <Label>{veggieItems.name}</Label>
    
       </ImageArea>
-        <button onClick={()=>{
+        <RemoveButton onClick={()=>{
         //  setFavoriteStatus(true)??
           handleAfterDeleteFavorite()
         }
-      }>Remove from favorite</button>
-      </div>
+      }>Remove from favorite</RemoveButton>
+      </RemoveImageArea>
     );
     })
               
 } 
           </FavoriteArea>
-        </Wrapper>
+        </ProfileArea>
       )}
       {/* {!isAuthenticated && (
         <Wrapper>Please got to sign in/ sign up page</Wrapper>
       )} */}
-    </ProfileArea>
+    </Wrapper>
   );
 };
 
-const ProfileArea = styled.div`
-margin-top: 80px;
-//height: fit-content;
-`;
-const Layout = styled.div`
+// const ProfileArea = styled.div`
+// margin-top: 80px;
+// //height: fit-content;
+// `;
+const ProfileSection = styled.div`
   display: inline-flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+//margin-top: 80px;
+//height: fit-content;
+`;
+const ImageUser = styled.img`
+  width: auto;
+  height: 80px;
+  border-radius: 10px;
+`;
+const ProfileArea = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 80px;
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -125,19 +147,44 @@ const Label = styled.div`
   background: rgb(72, 72, 72, 0.6);
   color: White;
 `;
+const RemoveButton = styled.button`
+  margin-bottom: 10px;
+  width: 200px;
+  height: 10%;
+  color: white;
+  background-color:var(--secondary-color); 
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: auto;
+  margin-right: auto;
+
+`;
 const ImageArea = styled(Link)`
   width: fit-content;
   position: relative;
   // border: solid black 2px;
   border-radius: 5px;
-  margin: 10px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const Wrapper = styled.div`
-  display: flex;
-  //height: 60px;
+ // display: flex;
+ // height: 860px;
   `;
 const FavoriteArea = styled.div`
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+`
+const RemoveImageArea = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 10px;
 
 `
 const ProfileText = styled.p`

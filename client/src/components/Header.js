@@ -61,7 +61,7 @@ const LogoArea = styled(Link)`
 `;
 const ProfileLoginArea = styled(Link)`
   margin-right: 10px;
-  padding: 2px 6px;
+  padding: 1px 6px;
   color: white;
 `;
 const SignInOutArea = styled.div`
