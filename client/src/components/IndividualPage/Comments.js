@@ -4,10 +4,13 @@ import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import PicUser from "../../Pics/blank-profile-picture.png";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const Comments = () => {
   const { comments, handleAfterDeletePost } = useContext(UserContext);
   const { id } = useParams();
+  const { user, isAuthenticated } = useAuth0();
+
   // console.log("comments", comments);
   if (!comments?.data?.length) {
     return null;
@@ -24,20 +27,24 @@ export const Comments = () => {
 
   return (
     <div>
-      {filteredCommentsArray.map((comment, i) => {
+      {filteredCommentsArray.map((comment, index) => {
         return (
-          <CommentSection key={i}>
+          <CommentSection key={index}>
             {/*             <div>{comment.idItem}</div>
              */}
             {comment?.user?.picture && (
               <ImageUser src={comment.user?.picture} />
             )}
             {!comment?.user?.picture && <ImageUser src={PicUser} />}
-
+            {isAuthenticated &&
             <Name>{comment?.user?.nickname} </Name>
+            }
+             {!isAuthenticated &&
+             <Name>Anonymous user</Name>
+             }
 
             <Status>{comment.status}</Status>
-            <DeleteButton onClick={() => handleAfterDeletePost(id)}>delete</DeleteButton>
+            <DeleteButton onClick={() => handleAfterDeletePost(index)}>delete</DeleteButton>
           </CommentSection>
         );
         //comment

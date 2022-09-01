@@ -5,12 +5,15 @@ import { LoginButton } from "./SignIn-Up/LoginButton";
 import { LogoutButton } from "./SignIn-Up/LogoutButton";
 import Profile from "./Profile";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useParams } from "react-router-dom";
+
 //import { UserContext } from "./UserContext";
 const Header = () => {
   // const { currentUser, signOutFunction } = useContext(UserContext);
   //const { isLoading, error } = useAuth0;
 
   const { isAuthenticated } = useAuth0();
+  //const { profile } = useParams();
 
   return (
     <HeaderArea>
@@ -18,7 +21,7 @@ const Header = () => {
         <h1>Garden Helper</h1>
       </LogoArea>
       <SignInOutArea>
-        {isAuthenticated &&
+        {isAuthenticated  &&
         <ProfileLoginArea to={"/profile"}>
           <p>Profile</p>
         </ProfileLoginArea>

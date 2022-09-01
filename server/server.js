@@ -26,8 +26,8 @@ app.get("/fetch-message", function (req, res) {
  app.get('/getPosts', getPosts)
  app.post('/addFavorite', addFavorite)
  app.get('/getFavorites', getFavorites)
- app.delete('/deleteComment', deleteComment)
- app.delete('/deleteFavorite', deleteFavorite)
+ app.delete('/deleteComment/:_id', deleteComment)
+ app.delete('/deleteFavorite/:_id', deleteFavorite)
 
 /*  app.post('/:postId', async (req, res) => {
 const postId = req.params.postId

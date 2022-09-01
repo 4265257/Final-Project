@@ -5,20 +5,22 @@ import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { CommentSection } from "./CommentSection";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const IndividualPage = () => {
+  const { veggiesInfo, fruitsInfo, fineHerbesInfo } = useContext(ItemContext);
   const {
-    veggiesInfo,
-    fruitsInfo,
-    fineHerbesInfo,
-  } = useContext(ItemContext);
-  const {
-    handleAfterFavorite, favoriteStatus, setFavoriteStatus  } = useContext(UserContext);
+    handleAfterFavorite,
+    favoriteStatus,
+    setFavoriteStatus,
+    handleAfterDeleteFavorite,
+  } = useContext(UserContext);
   const { id } = useParams();
   // const idOfItem =  { id }
   const veggieItem = veggiesInfo.find((veggie) => veggie.id == id);
   const fruitItem = fruitsInfo.find((fruit) => fruit.id == id);
   const fineHerbeItem = fineHerbesInfo.find((fineHerbe) => fineHerbe.id == id);
+  const { user, isAuthenticated } = useAuth0();
 
   return (
     <Wrapper>
@@ -32,9 +34,29 @@ export const IndividualPage = () => {
                 {/* {favoriteStatus == true &&
 
                 } */}
-                <FavoriteButton onClick={()=>handleAfterFavorite(id)} disabled={favoriteStatus}>Add to favorite</FavoriteButton>
+                {isAuthenticated && (
+                  !favoriteStatus[id] &&
+                  <FavoriteButton
+                    onClick={() => handleAfterFavorite(id)}
+                    disabled={favoriteStatus[id]}
+                  >
+                    Add to favorite
+                  </FavoriteButton>
+                )}
+                 {isAuthenticated && 
+                favoriteStatus[id] &&
+                <FavoriteButton
+                onClick={() => {
+                  //  setFavoriteStatus(true)??
+                  handleAfterDeleteFavorite(id);
+                }}
+                disabled={!favoriteStatus[id]}
+              >
+                Remove from favorite
+              </FavoriteButton>
+                } 
               </TitleFavoriteSection>
-                <Description>{veggieItem.description}</Description>
+              <Description>{veggieItem.description}</Description>
             </DescriptionSection>
           </ItemPage>
           <CommentSection />
@@ -87,20 +109,21 @@ const DescriptionSection = styled.div`
   align-content: left;
   align-items: center;
   text-align: left;
- // margin-left: 40px;
+  // margin-left: 40px;
   overflow-wrap: break-word;
   width: 400px;
 `;
 
 const Wrapper = styled.div`
-   height: auto;
-   margin-top: 100px;
+  height: auto;
+  margin-top: 100px;
   /*
   margin-left: auto;
   margin-left: auto;  */
 `;
 const Description = styled.p`
-  width: 50%;
+  width: 60%;
+  text-align: center;
 `;
 const FullSection = styled.div`
   display: flex;
@@ -115,12 +138,22 @@ const Textarea = styled.textarea`
   width: 420px;
   height: 100px;
 `;
-
+const RemoveButton = styled.button`
+  margin-bottom: 10px;
+  width: 200px;
+  height: 10%;
+  color: white;
+  background-color: var(--secondary-color);
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: auto;
+  margin-right: auto;
+`;
 const FavoriteButton = styled.button`
   width: 80%;
   height: 10%;
   color: white;
-  background-color:var(--secondary-color); 
+  background-color: var(--secondary-color);
   border-radius: 5px;
   margin-left: 10px;
   padding: 5px;

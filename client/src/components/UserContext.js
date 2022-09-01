@@ -9,8 +9,8 @@ export const UserProvider = ({ children }) => {
   //const [error, setError] = useState(false);
   const { user } = useAuth0();
   const [comments, setComments] = useState([]);
-  const [favorites, setFavorites] = useState(false);
-  const [favoriteStatus, setFavoriteStatus] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [favoriteStatus, setFavoriteStatus] = useState({});
 
   /// const { id } = useParams();
   //console.log("id", id)
@@ -39,13 +39,14 @@ export const UserProvider = ({ children }) => {
       },
       body: JSON.stringify({
         user: user,
-        favorite: true,
+        //favorite: true,
         idItem: id,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        setFavoriteStatus(true);
+      setFavoriteStatus(v => ({...v,[id]: true}));
+      
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -76,7 +77,8 @@ export const UserProvider = ({ children }) => {
   //console.log("favorites", favorites)
 
   const handleAfterDeletePost = async (id) => {
-    const response = await fetch("/deleteComment", {
+    console.log("id",id)
+    const response = await fetch(`/deleteComment/${id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -101,12 +103,17 @@ export const UserProvider = ({ children }) => {
   // }, []);
 
   const handleAfterDeleteFavorite = async (id) => {
-    fetch("/deleteFavorite", {
+    fetch(`/deleteFavorite/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+      },
     })
       .then((res) => res.json())
       .then((data) => {
-        setFavoriteStatus(false);
+        setFavoriteStatus(v => ({...v,[id]: false}));
+        //setFavoriteStatus(false);
         console.log(data);
       })
       .catch((err) => console.log(err));

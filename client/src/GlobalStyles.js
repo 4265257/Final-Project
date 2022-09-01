@@ -9,7 +9,7 @@ export default createGlobalStyle`
       //--page-horizontal-padding: 20px;
       //--header-height: 50px;
       --max-content-width: 2200px;
-      --heading-font-family: "Avenir Next, Avenir, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, sans-serif";
+      --body-fonts: "Nunito","Helvetica", "Arial", sans-serif;
       //--user-img-width: 120px;
     }
 
@@ -32,6 +32,7 @@ export default createGlobalStyle`
         font-size: 100%;
         vertical-align: baseline;
         box-sizing: border-box;
+        font-family: var(--body-fonts);
     }
     /* HTML5 display-role reset for older browsers */
     article, aside, details, figcaption, figure,
@@ -57,7 +58,7 @@ export default createGlobalStyle`
         content: none;
     }
     h1, h2, h3 {
-        font-family: var(--heading-font-family);
+       // font-family: var(--heading-font-family);
         text-align: center;
        // color: black;
     }
@@ -68,6 +69,8 @@ export default createGlobalStyle`
     h2{
         font-size: 25px;
         color: black;
+        /* margin-left: auto;
+        margin-right: auto; */
     }
     header{
         height: 50px;
@@ -83,9 +86,10 @@ export default createGlobalStyle`
         color: white;
        // border-radius: 5px;
     }
-    div, p, button, span, input {
+    button, input, a {
+        cursor: pointer;
        // color: black;
-        font-family: var(--heading-font-family);
+       // font-family: var(--heading-font-family);
         
     }
     a{
