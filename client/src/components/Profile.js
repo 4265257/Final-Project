@@ -23,21 +23,16 @@ const Profile = () => {
   //console.log("user", user.sub)
   console.log("favorites", favorites.data);
 
-  const filteredFavoritesArray = favoritesArray?.filter((favorite) => {
-    if (favorite.user?.sub == user?.sub) {
-      // console.log(comment.status);
-      return favorite;
-    }
-  });
+  const filteredFavoritesArray = favoritesArray
+  // ?.filter((favorite) => {
+  //   if (favorite.user?.sub == user?.sub) {
+  //     // console.log(comment.status);
+  //     return favorite;
+  //   }
+  // });
 
-  //console.log("filteredFavoritesArrayS", filteredFavoritesArray)
+  console.log("favoriteStatus",favoriteStatus)
 
-  // const FavoriteIdItemVeggies = filteredFavoritesArray.map((favorite)=>{
-  // const veggieItems = veggiesInfo.find((veggie) => veggie.id == favorite.idItem);
-
-  // return veggieItems
-  // })
-  //console.log("FavoriteIdItem",FavoriteIdItemVeggies)
   return (
     <Wrapper>
       <ProfileArea>
@@ -53,19 +48,12 @@ const Profile = () => {
           >
             {user?.name}
           </h2>
-          {/*             <ul>
-              {Object.keys(user).map((ObjKey, i) => {
-                <li>
-                  {ObjKey}: {user[ObjKey]}
-                </li>;
-              })}
-            </ul> */}
         </ProfileSection>
         {filteredFavoritesArray?.length !== 0 && (
           <h2
-            style={{
-              padding: 10,
-            }}>
+          style={{
+            padding: 10,
+          }}>
             Favorites
           </h2>
         )}
@@ -73,8 +61,9 @@ const Profile = () => {
           {filteredFavoritesArray?.map((favorite, i) => {
             const veggieItems = veggiesInfo?.find(
               (veggie) => veggie.id == favorite.idItem
-            );
-            return (
+              );
+              return (
+                
               <RemoveImageArea key={i}>
                 <ImageArea to={`/${veggieItems.id}`}>
                   <Image
@@ -83,16 +72,17 @@ const Profile = () => {
                     }}
                     cloudName="yarabrek"
                     publicId={veggieItems.avatarPic}
-                  />
+                    />
                   <Label>{veggieItems.name}</Label>
                 </ImageArea>
                 <RemoveButton
                   onClick={() => {
+                    console.log("veggieItems.id",veggieItems.id)
                     //  setFavoriteStatus(true)??
                     handleAfterDeleteFavorite(veggieItems.id);
                   }}
                   disabled={!favoriteStatus[veggieItems.id]}
-                >
+                  >
                   Remove from favorite
                 </RemoveButton>
               </RemoveImageArea>
@@ -119,12 +109,12 @@ const ProfileSection = styled.div`
   align-content: center;
   //margin-top: 80px;
   //height: fit-content;
-`;
+  `;
 const ImageUser = styled.img`
   width: auto;
   height: 80px;
   border-radius: 10px;
-`;
+  `;
 const ProfileArea = styled.div`
   display: inline-flex;
   flex-direction: column;
@@ -137,7 +127,7 @@ const ProfileArea = styled.div`
   // margin-bottom: 20px;
   //margin-left: auto;
   // margin-right: auto;
-`;
+  `;
 const Label = styled.div`
   text-align: center;
   position: absolute;
@@ -146,7 +136,7 @@ const Label = styled.div`
   font-size: 25px;
   background: rgb(72, 72, 72, 0.6);
   color: White;
-`;
+  `;
 const RemoveButton = styled.button`
   margin-bottom: 10px;
   width: 200px;
@@ -157,7 +147,7 @@ const RemoveButton = styled.button`
   padding: 5px;
   margin-left: auto;
   margin-right: auto;
-`;
+  `;
 const ImageArea = styled(Link)`
   width: fit-content;
   position: relative;
@@ -165,12 +155,12 @@ const ImageArea = styled(Link)`
   border-radius: 5px;
   margin-left: auto;
   margin-right: auto;
-`;
+  `;
 
 const Wrapper = styled.div`
   // display: flex;
   // height: 860px;
-`;
+  `;
 const FavoriteArea = styled.div`
   display: inline-flex;
   flex-direction: row;
@@ -178,9 +168,9 @@ const FavoriteArea = styled.div`
   justify-content: center;
   align-items: center;
   align-content: center;
-  border: solid white 10px;
-background-color: white;
-`;
+  //border: solid white 10px;
+  background-color: white;
+  `;
 const RemoveImageArea = styled.div`
   display: inline-flex;
   flex-direction: column;
@@ -190,7 +180,7 @@ const RemoveImageArea = styled.div`
 const ProfileText = styled.p`
   font-size: 100px;
   text-align: center;
-`;
+  `;
 
 export default Profile;
 
@@ -198,3 +188,20 @@ export default Profile;
 // const fruitItems = fruitsInfo.filter((fruit) => fruit.id == filteredFavoritesArray.idItem);
 // const fineHerbeItems = fineHerbesInfo.filter((fineHerbe) => fineHerbe.id == filteredFavoritesArray.idItem);
 // console.log("veggieItems", veggieItems)
+
+{/*             <ul>
+    {Object.keys(user).map((ObjKey, i) => {
+      <li>
+        {ObjKey}: {user[ObjKey]}
+      </li>;
+    })}
+  </ul> */}
+
+
+    //console.log("filteredFavoritesArrayS", filteredFavoritesArray)
+
+  // const FavoriteIdItemVeggies = filteredFavoritesArray.map((favorite)=>{
+  // const veggieItems = veggiesInfo.find((veggie) => veggie.id == favorite.idItem);
+
+  // return veggieItems
+  // })

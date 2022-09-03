@@ -12,9 +12,16 @@ const {
 } = require("./handlersItems");
 
 app.use(express.json())
-//  const { veggies } = require("./data/veggies");
-//  const { fruits } = require("./data/fruits");
-//  const { fineHerbes } = require("./data/fineHerbes");
+const { auth } = require('express-oauth2-jwt-bearer');
+
+// Authorization middleware. When used, the Access Token must
+// exist and be verified against the Auth0 JSON Web Key Set.
+const checkJwt = auth({
+  audience:"BackEndFinalProject",
+  //audience: 'https://dev-qsmcygd4.us.auth0.com/api/v2/',
+  issuerBaseURL: `https://dev-qsmcygd4.us.auth0.com/`,
+});
+
 
 //testing end points
 app.get("/fetch-message", function (req, res) {
@@ -22,12 +29,12 @@ app.get("/fetch-message", function (req, res) {
 });
 
 //creating a new post on indivivual item pages
- app.post('/addPost', addPost)
- app.get('/getPosts', getPosts)
- app.post('/addFavorite', addFavorite)
- app.get('/getFavorites', getFavorites)
- app.delete('/deleteComment/:_id', deleteComment)
- app.delete('/deleteFavorite/:_id', deleteFavorite)
+app.get('/getPosts', getPosts)
+app.get('/getFavorites/:sub', getFavorites)
+app.post('/addPost', checkJwt, addPost)
+ app.post('/addFavorite', checkJwt, addFavorite)
+ app.delete('/deleteComment/:_id', checkJwt,  deleteComment)
+ app.delete('/deleteFavorite/:_id', checkJwt,  deleteFavorite)
 
 /*  app.post('/:postId', async (req, res) => {
 const postId = req.params.postId

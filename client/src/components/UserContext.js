@@ -7,7 +7,7 @@ export const UserContext = createContext(null);
 export const UserProvider = ({ children }) => {
   const [comment, setComment] = useState({ status: "" });
   //const [error, setError] = useState(false);
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
   const [comments, setComments] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [favoriteStatus, setFavoriteStatus] = useState({});
@@ -23,19 +23,45 @@ export const UserProvider = ({ children }) => {
   }, [comment]);
 
   useEffect(() => {
-    fetch("/getFavorites")
-      .then((res) => res.json())
-      .then((data) => {
-        setFavorites(data);
-      });
-  }, [favoriteStatus]);
+    //console.log(user)
+    if(user){
+      fetch(`/getFavorites/${user.sub}`)
+        .then((res) => res.json())
+        .then((data) => {
+         // console.log("data",data.data)
+          setFavorites(data);
+        });
+    }
+  }, [
+    favoriteStatus, 
+    user]);
+
+    useEffect(() => {
+     // console.log(user)
+      if(favorites?.data?.length){
+        // fetch(`/getFavorites/${user.sub}`)
+        //   .then((res) => res.json())
+        //   .then((data) => {
+           // console.log("data",data.data)
+            const favoritesObj = {}
+            favorites.data.forEach((item) =>{
+              favoritesObj[item.idItem] = true
+             // console.log("item",item)
+            })
+          setFavoriteStatus(favoritesObj)
+          ;
+      }
+    }, [favorites,
+      user]);
 
   const handleAfterFavorite = async (id) => {
+    const accessToken = await getAccessTokenSilently()
     const response = await fetch("/addFavorite", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: 'Bearer ' + accessToken
       },
       body: JSON.stringify({
         user: user,
@@ -53,20 +79,24 @@ export const UserProvider = ({ children }) => {
   };
 
   const handleAfterPost = async (id) => {
+    const accessToken = await getAccessTokenSilently()
     const response = await fetch("/addPost", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: 'Bearer ' + accessToken
       },
       body: JSON.stringify({
         user: user,
         status: comment,
         idItem: id,
+
       }),
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log("data",data)
         setComment((v) => ({ ...v, [id]: true }));
       })
       .catch((error) => {
@@ -76,12 +106,14 @@ export const UserProvider = ({ children }) => {
   //console.log("favorites", favorites)
 
   const handleAfterDeletePost = async (id) => {
-    console.log("id", id);
+   // console.log("id", id);
+   const accessToken = await getAccessTokenSilently()
     const response = await fetch(`/deleteComment/${id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
+        Authorization: 'Bearer ' + accessToken
       },
     })
       .then((res) => res.json())
@@ -98,11 +130,14 @@ export const UserProvider = ({ children }) => {
   // }, []);
 
   const handleAfterDeleteFavorite = async (id) => {
+   // setFavorites
+   const accessToken = await getAccessTokenSilently()
     fetch(`/deleteFavorite/${id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
+        Authorization: 'Bearer ' + accessToken
       },
     })
       .then((res) => res.json())

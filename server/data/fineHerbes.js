@@ -3,7 +3,7 @@ const fineHerbes =
   {
     id: "1006",
     name: "Chives",
-    avatarPic:"https://res.cloudinary.com/yarabrek/image/upload/v1661124940/DSC_0951_mmocpa.jpg",
+    avatarPic:"https://res.cloudinary.com/yarabrek/image/upload/c_fill,h_200,w_200/v1661124940/DSC_0951_mmocpa.jpg",
     description : "Easy to cultivate and to germinate also the plant needs partial sun"
   },
   {
