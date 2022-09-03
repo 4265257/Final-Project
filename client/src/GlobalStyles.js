@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import PicGarden from "./Pics/gardenPic.JPG";
 
 export const breakpoints = { tablet: "600px" };
 
@@ -42,9 +43,21 @@ export default createGlobalStyle`
     body {
         //line-height: 1;
         background-color: white; 
-        height: auto;   
+       // height: auto;   
         position: relative;
         //min-height: 70%;
+        background-image: 
+  //url(../Pics/gardenPic.JPG)
+    url(${PicGarden});
+  //position: fixed;
+  //margin:0 ;
+  //top:0;
+  // height: 60px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  //width: 100%;
+  //height: 100%;
     }
     ol, ul {
         list-style: none;
@@ -68,17 +81,27 @@ export default createGlobalStyle`
     }
     h2{
         font-size: 25px;
-        color: black;
-        /* margin-left: auto;
-        margin-right: auto; */
+        color: white;
+        background-color: black;
+        width: fit-content;
+        text-align: center;
+        //background-size: ;
+        /* 
+        */
+        margin-left: auto;
+        margin-right: auto; 
+    }
+    h3{
+        font-size: 20px;
     }
     header{
-        height: 50px;
-        background-color: var(--primary-color);
+        //height: 450px;
         position: fixed;
         margin:0 ;
         top:0;
-        z-index:1000 
+        z-index:1000;
+        background-color: var(--primary-color);
+ 
     }
     button{
         border: none;
@@ -93,8 +116,9 @@ export default createGlobalStyle`
         
     }
     a{
-        color: black;
+        color: white;
         text-decoration: none;
+       // padding: 2px 6px;
     }
     footer {
         //position:absolute;
@@ -102,6 +126,7 @@ export default createGlobalStyle`
         /* left: 0;
         bottom: 0; */
         width: 100%;
+    
         background-color: var(--primary-color);
         text-align: center;
         color: white;

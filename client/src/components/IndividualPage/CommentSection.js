@@ -14,6 +14,7 @@ export const CommentSection = () => {
   return (
     <Wrapper>
       <h3>Comment section</h3>
+      <Comments />
       <Form
         onSubmit={(e) => {
           e.preventDefault();
@@ -33,7 +34,6 @@ export const CommentSection = () => {
           type="submit"
         />
       </Form>
-      <Comments />
       {/* <div>
 
 {comment}  
@@ -71,6 +71,9 @@ const PostButtton = styled.input`
   padding: 5px;
 `;
 const Wrapper = styled.div`
+background-color: white;
+margin: 40px;
+padding: 40px;
   /* height: 60px;
   margin-top: 150px;
   margin-left: auto;

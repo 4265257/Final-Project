@@ -45,8 +45,7 @@ export const UserProvider = ({ children }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-      setFavoriteStatus(v => ({...v,[id]: true}));
-      
+        setFavoriteStatus((v) => ({ ...v, [id]: true }));
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -68,7 +67,7 @@ export const UserProvider = ({ children }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        localStorage.setItem("user", user);
+        setComment((v) => ({ ...v, [id]: true }));
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -77,21 +76,17 @@ export const UserProvider = ({ children }) => {
   //console.log("favorites", favorites)
 
   const handleAfterDeletePost = async (id) => {
-    console.log("id",id)
+    console.log("id", id);
     const response = await fetch(`/deleteComment/${id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({
-        user: user,
-        status: comment,
-        idItem: id,
-      }),
     })
-      .then((res) => res.text())
+      .then((res) => res.json())
       .then((data) => {
+        setComment((v) => ({ ...v, [id]: false }));
         console.log(data);
       })
       .catch((err) => console.log(err));
@@ -112,7 +107,7 @@ export const UserProvider = ({ children }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setFavoriteStatus(v => ({...v,[id]: false}));
+        setFavoriteStatus((v) => ({ ...v, [id]: false }));
         //setFavoriteStatus(false);
         console.log(data);
       })

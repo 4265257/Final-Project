@@ -5,20 +5,23 @@ import { useState, useContext, useEffect } from "react";
 import PicUser from "../Pics/blank-profile-picture.png";
 import { ItemContext } from "./ItemContext";
 import { Image } from "cloudinary-react";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
   const { favorites, handleAfterDeleteFavorite, favoriteStatus } =
     useContext(UserContext);
   const { veggiesInfo, fruitsInfo, fineHerbesInfo } = useContext(ItemContext);
   const favoritesArray = favorites.data;
+  const { id } = useParams();
 
   // if (!favorites?.data?.length) {
   //   return null;
   // }
 
   //console.log("user", user.sub)
-  //console.log("favorites", favorites.data)
+  console.log("favorites", favorites.data);
 
   const filteredFavoritesArray = favoritesArray?.filter((favorite) => {
     if (favorite.user?.sub == user?.sub) {
@@ -45,6 +48,7 @@ const Profile = () => {
           <h2
             style={{
               padding: 10,
+              margin: 20,
             }}
           >
             {user?.name}
@@ -57,13 +61,14 @@ const Profile = () => {
               })}
             </ul> */}
         </ProfileSection>
-        <h2
-          style={{
-            padding: 10,
-          }}
-        >
-          Favorites
-        </h2>
+        {filteredFavoritesArray?.length !== 0 && (
+          <h2
+            style={{
+              padding: 10,
+            }}>
+            Favorites
+          </h2>
+        )}
         <FavoriteArea>
           {filteredFavoritesArray?.map((favorite, i) => {
             const veggieItems = veggiesInfo?.find(
@@ -85,7 +90,6 @@ const Profile = () => {
                   onClick={() => {
                     //  setFavoriteStatus(true)??
                     handleAfterDeleteFavorite(veggieItems.id);
-                    
                   }}
                   disabled={!favoriteStatus[veggieItems.id]}
                 >
@@ -174,6 +178,8 @@ const FavoriteArea = styled.div`
   justify-content: center;
   align-items: center;
   align-content: center;
+  border: solid white 10px;
+background-color: white;
 `;
 const RemoveImageArea = styled.div`
   display: inline-flex;

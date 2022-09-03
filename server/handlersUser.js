@@ -62,7 +62,7 @@ const deleteComment = async (req, res) => {
     await client.connect();
     const db = client.db("db-name");
     const { _id } = req.params;
-    const result = await db.collection("comments").deleteOne({ _id });
+    const result = await db.collection("comments").deleteOne({idItem: _id });
     res.status(201).json({ status: 201, data: result });
   } catch (err) {
     res.status(500).json({ status: 500, data: req.body, message: err.message });

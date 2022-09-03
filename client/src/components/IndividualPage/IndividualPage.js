@@ -30,7 +30,7 @@ export const IndividualPage = () => {
             <ImageFruit src={veggieItem.avatarPic}></ImageFruit>
             <DescriptionSection>
               <TitleFavoriteSection>
-                <h2>{veggieItem.name}</h2>
+                <h3>{veggieItem.name}</h3>
                 {/* {favoriteStatus == true &&
 
                 } */}
@@ -101,6 +101,8 @@ const ItemPage = styled.div`
   align-content: center;
   align-items: center;
   margin-bottom: 20px;
+  background-color: white;
+  padding: 20px;
 `;
 const DescriptionSection = styled.div`
   display: flex;

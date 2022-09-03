@@ -8,7 +8,9 @@ const Homepage = () => {
   const { veggiesInfo, fruitsInfo, fineHerbesInfo } = useContext(ItemContext);
   return (
     <HomeArea>
-      <h2 style={{ textAlign: "center", margin: 20 }}>Vegetables</h2>
+      <h2 style={{ textAlign: "center", /* margin: 20, */  
+      //backgroundColor:"black", width:"fit-content"
+      }}>Vegetables</h2>
       <Layout>
         {veggiesInfo.map((veggie) => {
           return (
@@ -25,7 +27,9 @@ const Homepage = () => {
           );
         })}
       </Layout>
-      <h2 style={{ textAlign: "center", margin: 20 }}>Fines Herbes</h2>
+      <h2 style={{ textAlign: "center", /* margin: 20, */  
+      //backgroundColor:"black", width:"fit-content"
+      }}>Fines Herbes</h2>
       <Layout>
         {fineHerbesInfo.map((fineHerbe) => {
           return (
@@ -45,7 +49,9 @@ const Homepage = () => {
           );
         })}
       </Layout>
-      <h2 style={{ textAlign: "center", margin: 20 }}>Fruits</h2>
+      <h2 style={{ textAlign: "center", /* margin: 20, */ 
+      //backgroundColor:"black", width:"fit-content"
+       }}>Fruits</h2>
       <Layout>
         {fruitsInfo.map((fruit) => {
           return (
@@ -71,16 +77,23 @@ margin-top: 80px;
 height: fit-content;
 `;
 const Layout = styled.div`
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+  width: fit-content;
+ height: fit-content;
+    margin-left: auto;
+   margin-right: auto;
  // margin-bottom: 20px;
-  //margin-left: auto;
-  // margin-right: auto;
+  //margin-left: 20% 
+  //backgroundColor:"black", width:"fit-content"
+  ;
+  //margin-right: 20% 
+  //backgroundColor:"black", width:"fit-content"
+  ;
 `;
 const Label = styled.div`
   text-align: center;
@@ -92,11 +105,25 @@ const Label = styled.div`
   color: White;
 `;
 const ImageArea = styled(Link)`
-  width: fit-content;
+/*   display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center; */
+  align-content: center;
+  //width: fit-content;
+  //width: 100%;
+
   position: relative;
-  // border: solid black 2px;
+  border: solid white 10px;
+  //background-color: white;
+//padding: 10px;
   border-radius: 5px;
-  margin: 10px;
+  margin: 20px;
+  /* &:hover {
+    border: 5px solid;
+    border-color: var(--primary-color);
+  } */
 `;
 
 export default Homepage;
@@ -113,7 +140,9 @@ export default Homepage;
 //   flex-direction: row;
 //   justify-content: center;
 //   align-items: center;
-//   margin-bottom: 20%;
+//   margin-bottom: 20% 
+//backgroundColor:"black", width:"fit-content"
+;
 // `;
 // const DescriptionArea = styled.form`
 //   background-color: var(--primary-color);
@@ -134,7 +163,9 @@ export default Homepage;
 //   margin-top: 8px;
 //   `;
 // const InputQty = styled.input`
-//   width: 20%;
+//   width: 20% 
+//backgroundColor:"black", width:"fit-content"
+;
 //   margin-left: 5px;
 //   `;
 // const ItemQty = styled.div`

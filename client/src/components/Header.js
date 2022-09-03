@@ -6,7 +6,7 @@ import { LogoutButton } from "./SignIn-Up/LogoutButton";
 import Profile from "./Profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams } from "react-router-dom";
-
+import PicGarden from "../Pics/gardenPic.JPG";
 //import { UserContext } from "./UserContext";
 const Header = () => {
   // const { currentUser, signOutFunction } = useContext(UserContext);
@@ -16,16 +16,21 @@ const Header = () => {
   //const { profile } = useParams();
 
   return (
-    <HeaderArea>
+    <HeaderArea
+    //style={{ backgroundImage:`url(${PicGarden})` }}
+    >
+      {/* 
+ <Img src={PicGarden}/>
+ */}
       <LogoArea to={`/`}>
         <h1>Garden Helper</h1>
       </LogoArea>
       <SignInOutArea>
-        {isAuthenticated  &&
-        <ProfileLoginArea to={"/profile"}>
-          <p>Profile</p>
-        </ProfileLoginArea>
-        }
+        {isAuthenticated && (
+          <ProfileLoginArea to={"/profile"}>Profile</ProfileLoginArea>
+        )}
+        <ProfileLoginArea to={"/about"}>About</ProfileLoginArea>
+
         <LoginButton />
         <LogoutButton />
       </SignInOutArea>
@@ -35,11 +40,8 @@ const Header = () => {
 const HeaderArea = styled.header`
   display: inline-flex;
   width: 100%;
+  height: fit-content;
   justify-content: space-between;
-  //position: fixed;
-  //margin:0 ;
-  //top:0;
-  height: 60px;
 `;
 const Button = styled.button`
   background-color: var(--primary-color);
@@ -56,15 +58,17 @@ const ButtonsArea = styled.div`
   margin-top: 15px;
   margin-right: 10px;
 `;
-const CartArea = styled(Link)`
-  margin-left: 10px;
+const Img = styled.img`
+  // margin-left: 10px;
+  width: 100%;
+  height: 500px;
 `;
 const LogoArea = styled(Link)`
   margin: 10px;
 `;
 const ProfileLoginArea = styled(Link)`
   margin-right: 10px;
-  padding: 1px 6px;
+  //padding: 2px 6px;
   color: white;
 `;
 const SignInOutArea = styled.div`
@@ -73,6 +77,7 @@ const SignInOutArea = styled.div`
   flex-direction: row;
   margin-top: 15px;
   margin-right: 10px;
+  float: left;
 `;
 
 export default Header;

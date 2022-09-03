@@ -10,6 +10,7 @@ import { UserProvider } from "./UserContext";
 import { IndividualPage } from "./IndividualPage/IndividualPage";
 import Footer from "./Footer";
 import Profile from "./Profile";
+import About from "./About";
 const App = () => {
   return (
     <div>
@@ -21,6 +22,7 @@ const App = () => {
             <Routes>
               <Route exact path="/" element={<Homepage />}></Route>
               <Route exact path="/profile" element={<Profile />}></Route>
+              <Route exact path="/about" element={<About />}></Route>
               <Route excat path="/:id" element={<IndividualPage />}></Route>
               <Route path="">404: Oops!</Route>
             </Routes>
