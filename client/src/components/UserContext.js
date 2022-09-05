@@ -6,12 +6,12 @@ import { useParams } from "react-router-dom";
 export const UserContext = createContext(null);
 export const UserProvider = ({ children }) => {
   const [comment, setComment] = useState({ status: "" });
-  //const [error, setError] = useState(false);
-  const { user, getAccessTokenSilently } = useAuth0();
+  const [favoriteStatus, setFavoriteStatus] = useState({});
   const [comments, setComments] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [favoriteStatus, setFavoriteStatus] = useState({});
-
+  const { user, getAccessTokenSilently } = useAuth0();
+  //const [error, setError] = useState('');
+  
   /// const { id } = useParams();
   //console.log("id", id)
   useEffect(() => {
@@ -23,18 +23,47 @@ export const UserProvider = ({ children }) => {
   }, [comment]);
 
   useEffect(() => {
-    //console.log(user)
+    console.log(user)
+    console.log("favoriteStatus",favoriteStatus)
     if(user){
       fetch(`/getFavorites/${user.sub}`)
         .then((res) => res.json())
         .then((data) => {
-         // console.log("data",data.data)
+         console.log("data",data.data)
           setFavorites(data);
         });
     }
   }, [
     favoriteStatus, 
     user]);
+
+
+    // useEffect(() => {
+    //   const getFavoritesFxn = async () => {
+    //     //console.log(user)
+    //     if (user) {
+    //       const accessToken = getAccessTokenSilently();
+    //       fetch(`/getFavorites/${user.sub}`, {
+    //         //method: 'GET',
+    //         headers: {
+    //           Authorization: "Bearer " + accessToken,
+    //         },
+    //       }).then((res) => {
+    //         if (res.status === 200) {
+    //           return res.json().then((data) => {
+    //             // console.log("data",data.data)
+    //             setFavorites(data);
+    //           });
+    //         } else {
+    //           setError(res.statusText);
+    //         }
+    //       });
+    //     }
+    //   };
+    //   getFavoritesFxn();
+    // }, [favoriteStatus, user, getAccessTokenSilently]);
+
+
 
     useEffect(() => {
      // console.log(user)

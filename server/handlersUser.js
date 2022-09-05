@@ -21,7 +21,7 @@ const addPost = async (req, res) => {
     idItem:  req.body.idItem,
   }
   const comment = await db.collection("comments").insertOne(statusInfo);
-  console.log("comment", comment)
+  //console.log("comment", comment)
   res.status(200).json({ status: 200, data: comment, info: statusInfo});
   client.close();
 };
@@ -52,7 +52,7 @@ const getPosts = async (req, res) => {
 };
 //returns all favorites
 const getFavorites = async (req, res) => {
-  console.log("req",req.params)
+  //console.log("req",req.params)
   const { sub } = req.params
   const client = new MongoClient(MONGO_URI, options);
   await client.connect();

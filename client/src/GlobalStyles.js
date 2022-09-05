@@ -9,7 +9,7 @@ export default createGlobalStyle`
       --secondary-color : #3A1D00;
       //--page-horizontal-padding: 20px;
       //--header-height: 50px;
-      --max-content-width: 2200px;
+      //--max-content-width: 2200px;
       --body-fonts: "Nunito","Helvetica", "Arial", sans-serif;
       //--user-img-width: 120px;
     }
@@ -42,7 +42,7 @@ export default createGlobalStyle`
     }
     body {
         //line-height: 1;
-        background-color: white; 
+       // background-color: white; 
        // height: auto;   
         position: relative;
         //min-height: 70%;
@@ -52,12 +52,14 @@ export default createGlobalStyle`
   //position: fixed;
   //margin:0 ;
   //top:0;
-  // height: 60px;
+ //height: auto;
   background-position: center;
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   //width: 100%;
   //height: 100%;
+ // display: flex;
+ // flex-direction: column;
     }
     ol, ul {
         list-style: none;
@@ -81,10 +83,12 @@ export default createGlobalStyle`
     }
     h2{
         font-size: 25px;
-        color: white;
-        background-color: black;
+        color: black;
+        background-color: white;
         width: fit-content;
         text-align: center;
+        border-radius: 5px;
+        padding: 5px;
         //background-size: ;
         /* 
         */
@@ -96,7 +100,7 @@ export default createGlobalStyle`
     }
     header{
         //height: 450px;
-        position: fixed;
+        //position: fixed;
         margin:0 ;
         top:0;
         z-index:1000;
@@ -121,10 +125,13 @@ export default createGlobalStyle`
        // padding: 2px 6px;
     }
     footer {
-        //position:absolute;
+    //position:absolute;
         //position: relative;
-        /* left: 0;
-        bottom: 0; */
+        /* 
+        */
+        //left: 0;
+       // position:fixed;
+       // bottom: 0;
         width: 100%;
     
         background-color: var(--primary-color);
@@ -132,5 +139,7 @@ export default createGlobalStyle`
         color: white;
         margin-top: auto;
     }
-   
+   #root{
+    height: auto;
+   }
 `;

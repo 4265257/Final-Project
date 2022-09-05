@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Harvest from "../Pics/gardenHarvest.jpg"
 
 const About = () => (
+    <Page>
   <Wrapper>
     <Img src={Harvest}/>
     <DescriptionSection>
@@ -11,25 +12,29 @@ const About = () => (
 
     </DescriptionSection>
   </Wrapper>
+    </Page>
 );
 
 const Wrapper = styled.div`
  // display: flex;
- // height: 60px;
  background-color: white;
  margin-left: auto;
  margin-right: auto;
  display: flex;
-	flex-direction: row;
-    width: 40%;
-    margin-top: 180px;
-    margin-bottom: 60px;
-    padding: 10px;
-`;
+ flex-direction: row;
+ width: 40%;
+ margin-top: 180px;
+ margin-bottom: 60px;
+ padding: 10px;
+ `;
 const DescriptionSection = styled.div`
  display: flex;
-	flex-direction: column;
-    padding: 10%;
+ flex-direction: column;
+ padding: 10%;
+ 
+ `
+const Page = styled.div`
+min-height: 100vh;
 
 `
 const Title = styled.div`

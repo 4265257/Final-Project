@@ -40,14 +40,16 @@ const Profile = () => {
         <ProfileSection>
           {user?.picture && <ImageUser src={user.picture} alt={user?.name} />}
           {!user.picture && <ImageUser src={PicUser} alt={user?.name} />}
-          <h2
+          <h3
             style={{
               padding: 10,
               margin: 20,
+              backgroundColor:"white",
+              borderRadius:"5px"
             }}
           >
             {user?.name}
-          </h2>
+          </h3>
         </ProfileSection>
         {filteredFavoritesArray?.length !== 0 && (
           <h2
@@ -158,6 +160,10 @@ const ImageArea = styled(Link)`
   `;
 
 const Wrapper = styled.div`
+
+min-height: 100vh;
+
+
   // display: flex;
   // height: 860px;
   `;

@@ -72,6 +72,7 @@ const PostButtton = styled.input`
 `;
 const Wrapper = styled.div`
 background-color: white;
+border-radius: 5px;
 margin: 40px;
 padding: 40px;
   /* height: 60px;

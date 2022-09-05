@@ -32,9 +32,11 @@ export const Comments = () => {
             {comment?.user?.name && <Name>{comment?.user?.name} </Name>}
             {!comment?.user?.name && <Name>Anonymous user</Name>}
             <Status>{comment.status}</Status>
+            {user &&
             <DeleteButton onClick={() => handleAfterDeletePost(id)}>
               delete
             </DeleteButton>
+            }
           </CommentSection>
         );
         //comment
@@ -62,16 +64,17 @@ const CommentSection = styled.div`
   position: relative;
   //justify-content: center;
   //align-content: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
+  //white-space: nowrap;
+  //overflow: hidden;
+ // text-overflow: ellipsis;
+  //word-wrap: break-word;
+  overflow: auto;
   align-items: center;
-  text-align: left;
+  //text-align: left;
  // margin: 40px;
   // overflow-wrap: break-word;
-  width: 300px;
-  height: fit-content;
+  //width: 300px;
+ //height: fit-content;
   border: solid 2px gray;
   border-radius: 5px;
   background-color: white;
@@ -96,16 +99,20 @@ const DeleteButton = styled.button`
   margin-left: auto; */
 //`;
 const Status = styled.div`
-  // width: 50%;
+   width: 50%;
+ word-wrap: break-word;
+//margin-top:80px ;
   position: absolute;
+  top: 20px;
   left: 60px;
-  height: fit-content;
-  width: 170px;
+ // height: fit-content;
+ // width: 170px;
 `;
 const Name = styled.p`
   position: absolute;
   top: 0;
   left: 60px;
+ // padding: 8px;
   // width: 50%;
 `;
 /* const FullSection = styled.div`

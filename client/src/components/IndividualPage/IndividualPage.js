@@ -30,7 +30,11 @@ export const IndividualPage = () => {
             <ImageFruit src={veggieItem.avatarPic}></ImageFruit>
             <DescriptionSection>
               <TitleFavoriteSection>
-                <h3>{veggieItem.name}</h3>
+                <h3
+                //style={{ width: "250px"}}
+                style={{ padding: "5px"}}
+
+                >{veggieItem.name}</h3>
                 {/* {favoriteStatus == true &&
 
                 } */}
@@ -102,6 +106,7 @@ const ItemPage = styled.div`
   align-items: center;
   margin-bottom: 20px;
   background-color: white;
+  border-radius:5px;
   padding: 20px;
 `;
 const DescriptionSection = styled.div`
@@ -152,7 +157,7 @@ const RemoveButton = styled.button`
   margin-right: auto;
 `;
 const FavoriteButton = styled.button`
-  width: 80%;
+  width: 100%;
   height: 10%;
   color: white;
   background-color: var(--secondary-color);
@@ -163,9 +168,10 @@ const FavoriteButton = styled.button`
 
 const TitleFavoriteSection = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-`;
+  padding: 10px;
+ `;
 
 const Input = styled.input`
   margin-left: 5px;
