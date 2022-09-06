@@ -20,16 +20,16 @@ export const UserProvider = ({ children }) => {
       .then((data) => {
         setComments(data);
       });
-  }, [comment]);
+  }, [comments]);
 
   useEffect(() => {
-    console.log(user)
-    console.log("favoriteStatus",favoriteStatus)
+   // console.log(user)
+   // console.log("favoriteStatus",favoriteStatus)
     if(user){
       fetch(`/getFavorites/${user.sub}`)
         .then((res) => res.json())
         .then((data) => {
-         console.log("data",data.data)
+        // console.log("data",data.data)
           setFavorites(data);
         });
     }
@@ -120,24 +120,23 @@ export const UserProvider = ({ children }) => {
         user: user,
         status: comment,
         idItem: id,
-
       }),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("data",data)
-        setComment((v) => ({ ...v, [id]: true }));
-      })
+      // .then((response) => response.json())
+      // .then((data) => {
+      //   console.log("data",data)
+      //   setComment((v) => ({ ...v, [id]: true }));
+      // })
       .catch((error) => {
         console.error("Error:", error);
       });
   };
   //console.log("favorites", favorites)
 
-  const handleAfterDeletePost = async (id) => {
+  const handleAfterDeletePost = async (id, commentId) => {
    // console.log("id", id);
    const accessToken = await getAccessTokenSilently()
-    const response = await fetch(`/deleteComment/${id}`, {
+    const response = await fetch(`/deleteComment/${commentId}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -145,11 +144,11 @@ export const UserProvider = ({ children }) => {
         Authorization: 'Bearer ' + accessToken
       },
     })
-      .then((res) => res.json())
-      .then((data) => {
-        setComment((v) => ({ ...v, [id]: false }));
-        console.log(data);
-      })
+      // .then((res) => res.json())
+      // .then((data) => {
+      //   setComment((v) => ({ ...v, [id]: false }));
+      //   console.log("data",data);
+      // })
       .catch((err) => console.log(err));
   };
 

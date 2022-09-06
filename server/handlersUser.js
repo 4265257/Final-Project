@@ -67,6 +67,30 @@ const getFavorites = async (req, res) => {
   }
   client.close();
 };
+
+// const getFavorites = async (req, res) => {
+//   try{
+
+//     //console.log("req",req.params)
+//     const { sub } = req.params
+//     const client = new MongoClient(MONGO_URI, options);
+//     await client.connect();
+//     const db = client.db("db-name");
+//     const favorites = await db.collection("favorites").find({"user.sub":sub}).toArray();
+//     if (favorites.length) {
+//       res.status(200).json({ status: 200, data: favorites });
+//     } else if (favorites.length === 0) {
+//       res
+//       .status(204)
+//       .json({ status: 204, message: "No content" });
+//     }
+//     client.close();
+//   }catch (err) {
+//     res.status(500).json({ status: 500, message: err.message });
+//     console.log(err.stack);
+//   }
+// };
+
 //delete comment
 const deleteComment = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
@@ -74,7 +98,8 @@ const deleteComment = async (req, res) => {
     await client.connect();
     const db = client.db("db-name");
     const { _id } = req.params;
-    const result = await db.collection("comments").deleteOne({idItem: _id });
+    console.log("_id", _id)
+    const result = await db.collection("comments").deleteOne({newId: _id });
     res.status(201).json({ status: 201, data: result });
   } catch (err) {
     res.status(500).json({ status: 500, data: req.body, message: err.message });

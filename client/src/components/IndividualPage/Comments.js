@@ -38,9 +38,9 @@ export const Comments = () => {
             {comment?.user?.sub == user?.sub && (
               <DeleteButton
                 onClick={() => {
-                  const commentId =  comment?._id;
-                  console.log("comment", comment?._id);
-                  return handleAfterDeletePost(id);
+                  const commentId =  comment?.newId;
+                  console.log("comment", commentId);
+                  return handleAfterDeletePost(id, commentId);
                 }}
               >
                 delete
