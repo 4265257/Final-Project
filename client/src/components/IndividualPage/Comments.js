@@ -21,7 +21,7 @@ export const Comments = () => {
   });
   //console.log("commentsArray", commentsArray[0]?.user.sub);
   // console.log("user", user.sub);
-  console.log("comments", comments.data?.[16]._id);
+ // console.log("comments", comments.data?.[16]._id);
 
   return (
     <div>
@@ -40,7 +40,7 @@ export const Comments = () => {
                 onClick={() => {
                   const commentId =  comment?._id;
                   console.log("comment", comment?._id);
-                  return handleAfterDeletePost(commentId);
+                  return handleAfterDeletePost(id);
                 }}
               >
                 delete

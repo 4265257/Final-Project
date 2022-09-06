@@ -176,10 +176,12 @@ const FavoriteArea = styled.div`
   align-items: center;
   align-content: center;
   //border: solid white 10px;
-  background-color: white;
-  border-radius:5px;
   `;
 const RemoveImageArea = styled.div`
+border-radius:5px;
+background-color: white;
+padding: 10px;
+
   display: inline-flex;
   flex-direction: column;
   flex-wrap: wrap;

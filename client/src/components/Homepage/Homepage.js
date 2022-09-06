@@ -73,7 +73,7 @@ const Homepage = () => {
 };
 
 const HomeArea = styled.div`
-margin-top: 80px;
+margin-top: 40px;
 height: fit-content;
 `;
 const Layout = styled.div`
