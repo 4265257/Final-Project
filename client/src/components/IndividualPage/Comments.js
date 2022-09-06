@@ -19,6 +19,9 @@ export const Comments = () => {
       return comment;
     }
   });
+  //console.log("commentsArray", commentsArray[0]?.user.sub);
+  // console.log("user", user.sub);
+  console.log("comments", comments.data?.[16]._id);
 
   return (
     <div>
@@ -32,11 +35,17 @@ export const Comments = () => {
             {comment?.user?.name && <Name>{comment?.user?.name} </Name>}
             {!comment?.user?.name && <Name>Anonymous user</Name>}
             <Status>{comment.status}</Status>
-            {user &&
-            <DeleteButton onClick={() => handleAfterDeletePost(id)}>
-              delete
-            </DeleteButton>
-            }
+            {comment?.user?.sub == user?.sub && (
+              <DeleteButton
+                onClick={() => {
+                  const commentId =  comment?._id;
+                  console.log("comment", comment?._id);
+                  return handleAfterDeletePost(commentId);
+                }}
+              >
+                delete
+              </DeleteButton>
+            )}
           </CommentSection>
         );
         //comment
@@ -66,15 +75,15 @@ const CommentSection = styled.div`
   //align-content: left;
   //white-space: nowrap;
   //overflow: hidden;
- // text-overflow: ellipsis;
+  // text-overflow: ellipsis;
   //word-wrap: break-word;
   overflow: auto;
   align-items: center;
   //text-align: left;
- // margin: 40px;
+  // margin: 40px;
   // overflow-wrap: break-word;
   //width: 300px;
- //height: fit-content;
+  //height: fit-content;
   border: solid 2px gray;
   border-radius: 5px;
   background-color: white;
@@ -99,20 +108,20 @@ const DeleteButton = styled.button`
   margin-left: auto; */
 //`;
 const Status = styled.div`
-   width: 50%;
- word-wrap: break-word;
-//margin-top:80px ;
+  width: 50%;
+  word-wrap: break-word;
+  //margin-top:80px ;
   position: absolute;
   top: 20px;
   left: 60px;
- // height: fit-content;
- // width: 170px;
+  // height: fit-content;
+  // width: 170px;
 `;
 const Name = styled.p`
   position: absolute;
   top: 0;
   left: 60px;
- // padding: 8px;
+  // padding: 8px;
   // width: 50%;
 `;
 /* const FullSection = styled.div`

@@ -1,27 +1,33 @@
 const express = require("express");
 const app = express();
 
-const { addPost, getPosts, addFavorite, getFavorites, deleteComment, deleteFavorite } = require("./handlersUser");
+const {
+  addPost,
+  getPosts,
+  addFavorite,
+  getFavorites,
+  deleteComment,
+  deleteFavorite,
+} = require("./handlersUser");
 const {
   getVeggies,
   getFruits,
   getFineHerbes,
-//  getSingleVeggie,
-//  getSingleFruit,
- // getSingleFineHerbe,
+  //  getSingleVeggie,
+  //  getSingleFruit,
+  // getSingleFineHerbe,
 } = require("./handlersItems");
 
-app.use(express.json())
-const { auth } = require('express-oauth2-jwt-bearer');
+app.use(express.json());
+const { auth } = require("express-oauth2-jwt-bearer");
 
 // Authorization middleware. When used, the Access Token must
 // exist and be verified against the Auth0 JSON Web Key Set.
 const checkJwt = auth({
-  audience:"BackEndFinalProject",
+  audience: "BackEndFinalProject",
   //audience: 'https://dev-qsmcygd4.us.auth0.com/api/v2/',
   issuerBaseURL: `https://dev-qsmcygd4.us.auth0.com/`,
 });
-
 
 //testing end points
 app.get("/fetch-message", function (req, res) {
@@ -29,12 +35,13 @@ app.get("/fetch-message", function (req, res) {
 });
 
 //creating a new post on indivivual item pages
-app.get('/getPosts', getPosts)
-app.get('/getFavorites/:sub', getFavorites)
-app.post('/addPost', checkJwt, addPost)
- app.post('/addFavorite', checkJwt, addFavorite)
- app.delete('/deleteComment/:_id', checkJwt,  deleteComment)
- app.delete('/deleteFavorite/:_id', checkJwt,  deleteFavorite)
+app.get("/getPosts", getPosts);
+//app.get('/getFavorites/:sub', checkJwt, getFavorites)
+app.get("/getFavorites/:sub", getFavorites);
+app.post("/addPost", checkJwt, addPost);
+app.post("/addFavorite", checkJwt, addFavorite);
+app.delete("/deleteComment/:_id", checkJwt, deleteComment);
+app.delete("/deleteFavorite/:_id", checkJwt, deleteFavorite);
 
 /*  app.post('/:postId', async (req, res) => {
 const postId = req.params.postId
@@ -64,16 +71,6 @@ app.get("*", (req, res) => {
 });
 
 app.listen(8000, () => console.log(`Listening on port 8000`));
-
-
-
-
-
-
-
-
-
-
 
 /* const express = require("express");
 const app = express();

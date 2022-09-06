@@ -21,7 +21,7 @@ const Profile = () => {
   // }
 
   //console.log("user", user.sub)
-  console.log("favorites", favorites.data);
+  //console.log("favorites", favorites.data);
 
   const filteredFavoritesArray = favoritesArray
   // ?.filter((favorite) => {
@@ -31,7 +31,7 @@ const Profile = () => {
   //   }
   // });
 
-  console.log("favoriteStatus",favoriteStatus)
+ // console.log("favoriteStatus",favoriteStatus)
 
   return (
     <Wrapper>
@@ -55,6 +55,7 @@ const Profile = () => {
           <h2
           style={{
             padding: 10,
+            margin: 10,
           }}>
             Favorites
           </h2>
@@ -176,6 +177,7 @@ const FavoriteArea = styled.div`
   align-content: center;
   //border: solid white 10px;
   background-color: white;
+  border-radius:5px;
   `;
 const RemoveImageArea = styled.div`
   display: inline-flex;
