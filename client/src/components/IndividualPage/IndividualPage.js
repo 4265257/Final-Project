@@ -12,15 +12,13 @@ export const IndividualPage = () => {
   const {
     handleAfterFavorite,
     favoriteStatus,
-    setFavoriteStatus,
     handleAfterDeleteFavorite,
   } = useContext(UserContext);
   const { id } = useParams();
-  // const idOfItem =  { id }
   const veggieItem = veggiesInfo.find((veggie) => veggie.id == id);
   const fruitItem = fruitsInfo.find((fruit) => fruit.id == id);
   const fineHerbeItem = fineHerbesInfo.find((fineHerbe) => fineHerbe.id == id);
-  const { user, isAuthenticated } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   return (
     <Wrapper>
@@ -31,13 +29,8 @@ export const IndividualPage = () => {
             <DescriptionSection>
               <TitleFavoriteSection>
                 <h3
-                //style={{ width: "250px"}}
                 style={{ padding: "5px"}}
-
                 >{veggieItem.name}</h3>
-                {/* {favoriteStatus == true &&
-
-                } */}
                 {isAuthenticated && (
                   !favoriteStatus[id] &&
                   <FavoriteButton
@@ -51,7 +44,6 @@ export const IndividualPage = () => {
                 favoriteStatus[id] &&
                 <FavoriteButton
                 onClick={() => {
-                  //  setFavoriteStatus(true)??
                   handleAfterDeleteFavorite(id);
                 }}
                 disabled={!favoriteStatus[id]}
@@ -66,27 +58,77 @@ export const IndividualPage = () => {
           <CommentSection />
         </FullSection>
       )}
-      {fruitItem && (
-        <ItemPage>
-          <ImageFruit src={fruitItem.avatarPic}></ImageFruit>
-          <DescriptionSection>
-            <div>
-              <h1>{fruitItem.name}</h1>
+        {fruitItem && (
+        <FullSection>
+          <ItemPage>
+            <ImageFruit src={fruitItem.avatarPic}></ImageFruit>
+            <DescriptionSection>
+              <TitleFavoriteSection>
+                <h3
+                style={{ padding: "5px"}}
+                >{fruitItem.name}</h3>
+                {isAuthenticated && (
+                  !favoriteStatus[id] &&
+                  <FavoriteButton
+                    onClick={() => handleAfterFavorite(id)}
+                    disabled={favoriteStatus[id]}
+                  >
+                    Add to favorite
+                  </FavoriteButton>
+                )}
+                 {isAuthenticated && 
+                favoriteStatus[id] &&
+                <FavoriteButton
+                onClick={() => {
+                  handleAfterDeleteFavorite(id);
+                }}
+                disabled={!favoriteStatus[id]}
+              >
+                Remove from favorite
+              </FavoriteButton>
+                } 
+              </TitleFavoriteSection>
               <Description>{fruitItem.description}</Description>
-            </div>
-          </DescriptionSection>
-        </ItemPage>
+            </DescriptionSection>
+          </ItemPage>
+          <CommentSection />
+        </FullSection>
       )}
-      {fineHerbeItem && (
-        <ItemPage>
-          <ImageFruit src={fineHerbeItem.avatarPic}></ImageFruit>
-          <DescriptionSection>
-            <div>
-              <h1>{fineHerbeItem.name}</h1>
+       {fineHerbeItem && (
+        <FullSection>
+          <ItemPage>
+            <ImageFruit src={fineHerbeItem.avatarPic}></ImageFruit>
+            <DescriptionSection>
+              <TitleFavoriteSection>
+                <h3
+                style={{ padding: "5px"}}
+                >{fineHerbeItem.name}</h3>
+                {isAuthenticated && (
+                  !favoriteStatus[id] &&
+                  <FavoriteButton
+                    onClick={() => handleAfterFavorite(id)}
+                    disabled={favoriteStatus[id]}
+                  >
+                    Add to favorite
+                  </FavoriteButton>
+                )}
+                 {isAuthenticated && 
+                favoriteStatus[id] &&
+                <FavoriteButton
+                onClick={() => {
+                  handleAfterDeleteFavorite(id);
+                }}
+                disabled={!favoriteStatus[id]}
+              >
+                Remove from favorite
+              </FavoriteButton>
+                } 
+              </TitleFavoriteSection>
               <Description>{fineHerbeItem.description}</Description>
-            </div>
-          </DescriptionSection>
-        </ItemPage>
+            </DescriptionSection>
+          </ItemPage>
+          <CommentSection />
+        </FullSection>
       )}
     </Wrapper>
   );
@@ -97,7 +139,6 @@ const ImageFruit = styled.img`
   height: 350px;
   border-radius: 10px;
 `;
-
 const ItemPage = styled.div`
   display: flex;
   flex-direction: row;
@@ -116,17 +157,12 @@ const DescriptionSection = styled.div`
   align-content: left;
   align-items: center;
   text-align: left;
-  // margin-left: 40px;
   overflow-wrap: break-word;
   width: 400px;
 `;
-
 const Wrapper = styled.div`
   height: auto;
   margin-top: 100px;
-  /*
-  margin-left: auto;
-  margin-left: auto;  */
 `;
 const Description = styled.p`
   width: 60%;
@@ -140,22 +176,6 @@ const FullSection = styled.div`
   align-items: center;
   text-align: left;
 `;
-const Textarea = styled.textarea`
-  margin-top: 30px;
-  width: 420px;
-  height: 100px;
-`;
-const RemoveButton = styled.button`
-  margin-bottom: 10px;
-  width: 200px;
-  height: 10%;
-  color: white;
-  background-color: var(--secondary-color);
-  border-radius: 5px;
-  padding: 5px;
-  margin-left: auto;
-  margin-right: auto;
-`;
 const FavoriteButton = styled.button`
   width: 100%;
   height: 10%;
@@ -165,7 +185,6 @@ const FavoriteButton = styled.button`
   margin-left: 10px;
   padding: 5px;
 `;
-
 const TitleFavoriteSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -173,11 +192,3 @@ const TitleFavoriteSection = styled.div`
   padding: 10px;
  `;
 
-const Input = styled.input`
-  margin-left: 5px;
-  margin-top: 10px;
-  font-size: 20px;
-  background-color: var(--secondary-color);
-  border-radius: 5px;
-  display: block;
-`;

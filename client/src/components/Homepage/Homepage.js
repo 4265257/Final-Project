@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useContext, useEffect } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { Image } from "cloudinary-react";
 import { Link } from "react-router-dom";
@@ -8,9 +8,7 @@ const Homepage = () => {
   const { veggiesInfo, fruitsInfo, fineHerbesInfo } = useContext(ItemContext);
   return (
     <HomeArea>
-      <h2 style={{ textAlign: "center", /* margin: 20, */  
-      //backgroundColor:"black", width:"fit-content"
-      }}>Vegetables</h2>
+      <h2 style={{ textAlign: "center" }}>Vegetables</h2>
       <Layout>
         {veggiesInfo.map((veggie) => {
           return (
@@ -27,16 +25,11 @@ const Homepage = () => {
           );
         })}
       </Layout>
-      <h2 style={{ textAlign: "center", /* margin: 20, */  
-      //backgroundColor:"black", width:"fit-content"
-      }}>Fines Herbes</h2>
+      <h2 style={{ textAlign: "center" }}>Fines Herbes</h2>
       <Layout>
         {fineHerbesInfo.map((fineHerbe) => {
           return (
-            <ImageArea
-              key={fineHerbe.id}
-              to={`/${fineHerbe.id}`}
-            >
+            <ImageArea key={fineHerbe.id} to={`/${fineHerbe.id}`}>
               <Image
                 style={{
                   height: 200,
@@ -49,9 +42,7 @@ const Homepage = () => {
           );
         })}
       </Layout>
-      <h2 style={{ textAlign: "center", /* margin: 20, */ 
-      //backgroundColor:"black", width:"fit-content"
-       }}>Fruits</h2>
+      <h2 style={{ textAlign: "center" }}>Fruits</h2>
       <Layout>
         {fruitsInfo.map((fruit) => {
           return (
@@ -73,27 +64,20 @@ const Homepage = () => {
 };
 
 const HomeArea = styled.div`
-margin-top: 40px;
-height: fit-content;
+  margin-top: 40px;
+  height: fit-content;
 `;
 const Layout = styled.div`
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	align-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
   width: fit-content;
- height: fit-content;
-    margin-left: auto;
-   margin-right: auto;
- // margin-bottom: 20px;
-  //margin-left: 20% 
-  //backgroundColor:"black", width:"fit-content"
-  ;
-  //margin-right: 20% 
-  //backgroundColor:"black", width:"fit-content"
-  ;
+  height: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 `;
 const Label = styled.div`
   text-align: center;
@@ -105,136 +89,11 @@ const Label = styled.div`
   color: White;
 `;
 const ImageArea = styled(Link)`
-/*   display: inline-flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center; */
   align-content: center;
-  //width: fit-content;
-  //width: 100%;
-
   position: relative;
   border: solid white 10px;
-  //background-color: white;
-//padding: 10px;
   border-radius: 5px;
   margin: 20px;
-  /* &:hover {
-    border: 5px solid;
-    border-color: var(--primary-color);
-  } */
 `;
 
 export default Homepage;
-
-// const ItemPic = styled.img`
-//   margin: 10px;
-//   height: auto;
-//   width: auto;
-//   max-width: 150px;
-//   border: none;
-//   `;
-// const LayoutSmallerSec = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: center;
-//   align-items: center;
-//   margin-bottom: 20% 
-//backgroundColor:"black", width:"fit-content"
-;
-// `;
-// const DescriptionArea = styled.form`
-//   background-color: var(--primary-color);
-//   display: inline-flex;
-//   flex-direction: column;
-//   text-align: center;
-//   margin-left: 40px;
-//   width: 30%;
-//   border-radius: 10px;
-//   padding: 10px;
-//   `;
-// const ItemName = styled.div`
-//   width: 75%;
-//   margin-left: auto;
-//   margin-right: auto;
-//   `;
-// const ItemPrice = styled.div`
-//   margin-top: 8px;
-//   `;
-// const InputQty = styled.input`
-//   width: 20% 
-//backgroundColor:"black", width:"fit-content"
-;
-//   margin-left: 5px;
-//   `;
-// const ItemQty = styled.div`
-//   margin-top: 10px;
-//   margin-bottom: 10px;
-//   `;
-// const AddToCartButton = styled.button`
-//   width: fit-content;
-//   border: 0ch;
-//   border-radius: 5px;
-//   font-size: 20px;
-//   margin-left: auto;
-//   margin-right: auto;
-//   padding: 10px 15px;
-//   background-color: var(--secondary-color);
-//   cursor: pointer;
-//   &&:active {
-//     background: #e5e5e5;
-//     -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
-//     -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
-//     box-shadow: inset 0px 0px 5px #c1c1c1;
-//     outline: none;
-//   }
-//   `;
-// const Button = styled.button`
-//   background: none;
-//   color: inherit;
-//   border: none;
-//   padding: 0;
-//   font: inherit;
-//   cursor: pointer;
-//   outline: inherit;
-//   width: 150px;
-//   `;
-// const OutOfStockLabel = styled.span`
-//   margin: 100px 0 10px 0;
-//   `;
-{
-  /*         {getItems.map((item) => {
-          return (
-            <ItemArea key={item._id}>
-              <Button onClick={openPopup}>
-                <ItemPic src={item.imageSrc} name={item._id} />
-              </Button>
-              <DescriptionArea onSubmit={handleSubmit}>
-                <ItemName>{item.name}</ItemName>
-                <ItemPrice>{item.price}$</ItemPrice>
-                <ItemQty>
-                  Qty :
-                  {item.numInStock !== 0 && (
-                    <InputQty
-                      type="number"
-                      min={1}
-                      max={item.numInStock}
-                      name="quantity"
-                      defaultValue="1"
-                    ></InputQty>
-                  )}
-                  {item.numInStock === 0 && (
-                    <OutOfStockLabel> Out of Stock</OutOfStockLabel>
-                  )}
-                </ItemQty>
-                {item.numInStock !== 0 && (
-                  <AddToCartButton type="submit" name="submit" id={item._id}>
-                    Add to cart
-                  </AddToCartButton>
-                )}
-              </DescriptionArea>
-            </ItemArea>
-          );
-        })} */
-}

@@ -7,11 +7,7 @@ export default createGlobalStyle`
     :root {
       --primary-color: #44963A;
       --secondary-color : #3A1D00;
-      //--page-horizontal-padding: 20px;
-      //--header-height: 50px;
-      //--max-content-width: 2200px;
       --body-fonts: "Nunito","Helvetica", "Arial", sans-serif;
-      //--user-img-width: 120px;
     }
 
     html, body, div, span, applet, object, iframe,
@@ -35,31 +31,17 @@ export default createGlobalStyle`
         box-sizing: border-box;
         font-family: var(--body-fonts);
     }
-    /* HTML5 display-role reset for older browsers */
     article, aside, details, figcaption, figure,
     footer, header, hgroup, menu, nav, section {
         display: block;
     }
     body {
-        //line-height: 1;
-       // background-color: white; 
-       // height: auto;   
         position: relative;
-        //min-height: 70%;
         background-image: 
-  //url(../Pics/gardenPic.JPG)
-    url(${PicGarden});
-  //position: fixed;
-  //margin:0 ;
-  //top:0;
- //height: auto;
-  background-position: center;
-  background-size: cover;
-  background-repeat: repeat;
-  //width: 100%;
-  //height: 100%;
- // display: flex;
- // flex-direction: column;
+        url(${PicGarden});
+        background-position: center;
+        background-size: cover;
+        background-repeat: repeat;
     }
     ol, ul {
         list-style: none;
@@ -73,13 +55,11 @@ export default createGlobalStyle`
         content: none;
     }
     h1, h2, h3 {
-       // font-family: var(--heading-font-family);
         text-align: center;
-       // color: black;
-    }
+   }
     h1 {
-      font-size: 35px;
-      color: white;
+        font-size: 35px;
+        color: white;
     }
     h2{
         font-size: 25px;
@@ -89,9 +69,6 @@ export default createGlobalStyle`
         text-align: center;
         border-radius: 5px;
         padding: 5px;
-        //background-size: ;
-        /* 
-        */
         margin-left: auto;
         margin-right: auto; 
     }
@@ -99,47 +76,28 @@ export default createGlobalStyle`
         font-size: 20px;
     }
     header{
-        //height: 450px;
-        //position: fixed;
         margin:0 ;
         top:0;
         z-index:1000;
         background-color: var(--primary-color);
- 
     }
     button{
         border: none;
         font-size: 15px;
         color: white;
-       // border-radius: 5px;
     }
     button, input, a {
         cursor: pointer;
-       // color: black;
-       // font-family: var(--heading-font-family);
-        
     }
     a{
         color: white;
         text-decoration: none;
-       // padding: 2px 6px;
     }
     footer {
-    //position:absolute;
-        //position: relative;
-        /* 
-        */
-        //left: 0;
-       // position:fixed;
-       // bottom: 0;
         width: 100%;
-    
         background-color: var(--primary-color);
         text-align: center;
         color: white;
         margin-top: auto;
     }
-   #root{
-    height: auto;
-   }
 `;

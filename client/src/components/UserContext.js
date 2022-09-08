@@ -1,7 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useParams } from "react-router-dom";
 
 export const UserContext = createContext(null);
 export const UserProvider = ({ children }) => {
@@ -10,11 +8,9 @@ export const UserProvider = ({ children }) => {
   const [comments, setComments] = useState([]);
   const [getComments, setGetComments] = useState(true);
   const [favorites, setFavorites] = useState([]);
-  const { user, getAccessTokenSilently } = useAuth0();
   const [error, setError] = useState("");
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-  /// const { id } = useParams();
-  //console.log("id", id)
   useEffect(() => {
     if (getComments) {
       fetch("/getPosts")
@@ -26,23 +22,9 @@ export const UserProvider = ({ children }) => {
     }
   }, [getComments]);
 
-  // useEffect(() => {
-  //   // console.log(user)
-  //   // console.log("favoriteStatus",favoriteStatus)
-  //   if (user) {
-  //     fetch(`/getFavorites/${user.sub}`)
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         // console.log("data",data.data)
-  //         setFavorites(data);
-  //       });
-  //   }
-  // }, [favoriteStatus, user]);
-
   useEffect(() => {
     const getFavoritesFxn = async () => {
-      //console.log(user)
-      if (user) {
+      if (isAuthenticated) {
         const accessToken = await getAccessTokenSilently();
         fetch(`/getFavorites/${user.sub}`, {
           method: "GET",
@@ -54,7 +36,6 @@ export const UserProvider = ({ children }) => {
         }).then((res) => {
           if (res.status === 200) {
             return res.json().then((data) => {
-              // console.log("data",data.data)
               setFavorites(data);
             });
           } else {
@@ -64,23 +45,17 @@ export const UserProvider = ({ children }) => {
       }
     };
     getFavoritesFxn();
-  }, [favoriteStatus, user, getAccessTokenSilently]);
+  }, [favoriteStatus, isAuthenticated]);
 
   useEffect(() => {
-    // console.log(user)
     if (favorites?.data?.length) {
-      // fetch(`/getFavorites/${user.sub}`)
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      let isSame = true;
-      // console.log("data",data.data)
+            let isSame = true;
       const favoritesObj = {};
       favorites.data.forEach((item) => {
         if (!favoriteStatus[item.idItem]) {
           isSame = false;
         }
         favoritesObj[item.idItem] = true;
-        // console.log("item",item)
       });
       if (!isSame) {
         setFavoriteStatus(favoritesObj);
@@ -99,7 +74,6 @@ export const UserProvider = ({ children }) => {
       },
       body: JSON.stringify({
         user: user,
-        //favorite: true,
         idItem: id,
       }),
     })
@@ -129,19 +103,15 @@ export const UserProvider = ({ children }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data);
         setGetComments(true);
-        // setComment((v) => ({ ...v, [id]: true }));
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   };
-  //console.log("favorites", favorites)
-  //   useEffect(() => {
+
 
   const handleAfterDeletePost = async (id, commentId) => {
-    // console.log("id", id);
     const accessToken = await getAccessTokenSilently();
     const response = await fetch(`/deleteComment/${commentId}`, {
       method: "DELETE",
@@ -153,20 +123,13 @@ export const UserProvider = ({ children }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        //setComments(data)
         setGetComments(true);
-        //setComment((v) => ({ ...v, [id]: false }));
-        console.log("data", data);
       })
       .catch((err) => console.log(err));
   };
 
-  //     fetch('/deleteComment', { method: 'DELETE' })
-  //         .then(() => setStatus('Delete successful'));
-  // }, []);
 
   const handleAfterDeleteFavorite = async (id) => {
-    // setFavorites
     const accessToken = await getAccessTokenSilently();
     fetch(`/deleteFavorite/${id}`, {
       method: "DELETE",
@@ -179,7 +142,6 @@ export const UserProvider = ({ children }) => {
       .then((res) => res.json())
       .then((data) => {
         setFavoriteStatus((v) => ({ ...v, [id]: false }));
-        //setFavoriteStatus(false);
         console.log(data);
       })
       .catch((err) => console.log(err));
@@ -204,44 +166,3 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
-
-// currentUser,
-// setCurrentUser,
-// userAfterSubmit,
-// currentData,
-// setCurrentData,
-//  signOutFunction
-// const [currentUser, setCurrentUser] = useState(null);
-// const [currentData, setCurrentData] = useState(null);
-//let navigate = useNavigate();
-
-// useEffect(() => {
-//   fetch("/api/users")
-//     .then((res) => res.json())
-//     .then((data) => {
-//       setCurrentData(data);
-//     });
-// }, []);
-
-// useEffect(() => {
-//   const user = localStorage.getItem("user");
-//   if (user) {
-//     setCurrentUser(user);
-//   }
-// }, []);
-
-// const userAfterSubmit = (input) => {
-//   localStorage.setItem("user", input);
-//   navigate.push("/");
-// };
-// const signOutFunction = () => {
-//   localStorage.removeItem("user");
-//   setCurrentUser(null);
-// };
-/*     const fetchData = await response.json();
-                console.log("fetchData ", fetchData);
-                if (fetchData) {
-                  localStorage.setItem("comment", comment);
-                } else {
-                  setError(true);
-                } */
