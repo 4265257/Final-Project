@@ -8,62 +8,63 @@ export const UserProvider = ({ children }) => {
   const [comment, setComment] = useState({ status: "" });
   const [favoriteStatus, setFavoriteStatus] = useState({});
   const [comments, setComments] = useState([]);
-  const [hasNewComments, setHasNewComments] = useState(true);
-
+  const [getComments, setGetComments] = useState(true);
   const [favorites, setFavorites] = useState([]);
   const { user, getAccessTokenSilently } = useAuth0();
-  //const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   /// const { id } = useParams();
   //console.log("id", id)
   useEffect(() => {
-    if (hasNewComments) {
+    if (getComments) {
       fetch("/getPosts")
         .then((res) => res.json())
         .then((data) => {
           setComments(data);
-          setHasNewComments(false);
+          setGetComments(false);
         });
     }
-  }, [hasNewComments]);
-
-  useEffect(() => {
-    // console.log(user)
-    // console.log("favoriteStatus",favoriteStatus)
-    if (user) {
-      fetch(`/getFavorites/${user.sub}`)
-        .then((res) => res.json())
-        .then((data) => {
-          // console.log("data",data.data)
-          setFavorites(data);
-        });
-    }
-  }, [favoriteStatus, user]);
+  }, [getComments]);
 
   // useEffect(() => {
-  //   const getFavoritesFxn = async () => {
-  //     //console.log(user)
-  //     if (user) {
-  //       const accessToken = getAccessTokenSilently();
-  //       fetch(`/getFavorites/${user.sub}`, {
-  //         //method: 'GET',
-  //         headers: {
-  //           Authorization: "Bearer " + accessToken,
-  //         },
-  //       }).then((res) => {
-  //         if (res.status === 200) {
-  //           return res.json().then((data) => {
-  //             // console.log("data",data.data)
-  //             setFavorites(data);
-  //           });
-  //         } else {
-  //           setError(res.statusText);
-  //         }
+  //   // console.log(user)
+  //   // console.log("favoriteStatus",favoriteStatus)
+  //   if (user) {
+  //     fetch(`/getFavorites/${user.sub}`)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         // console.log("data",data.data)
+  //         setFavorites(data);
   //       });
-  //     }
-  //   };
-  //   getFavoritesFxn();
-  // }, [favoriteStatus, user, getAccessTokenSilently]);
+  //   }
+  // }, [favoriteStatus, user]);
+
+  useEffect(() => {
+    const getFavoritesFxn = async () => {
+      //console.log(user)
+      if (user) {
+        const accessToken = await getAccessTokenSilently();
+        fetch(`/getFavorites/${user.sub}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: "Bearer " + accessToken,
+          },
+        }).then((res) => {
+          if (res.status === 200) {
+            return res.json().then((data) => {
+              // console.log("data",data.data)
+              setFavorites(data);
+            });
+          } else {
+            setError(res.statusText);
+          }
+        });
+      }
+    };
+    getFavoritesFxn();
+  }, [favoriteStatus, user, getAccessTokenSilently]);
 
   useEffect(() => {
     // console.log(user)
@@ -129,7 +130,7 @@ export const UserProvider = ({ children }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("data", data);
-        setHasNewComments(true);
+        setGetComments(true);
         // setComment((v) => ({ ...v, [id]: true }));
       })
       .catch((error) => {
@@ -137,6 +138,7 @@ export const UserProvider = ({ children }) => {
       });
   };
   //console.log("favorites", favorites)
+  //   useEffect(() => {
 
   const handleAfterDeletePost = async (id, commentId) => {
     // console.log("id", id);
@@ -149,15 +151,16 @@ export const UserProvider = ({ children }) => {
         Authorization: "Bearer " + accessToken,
       },
     })
-      // .then((res) => res.json())
-      // .then((data) => {
-      //   setComment((v) => ({ ...v, [id]: false }));
-      //   console.log("data",data);
-      // })
+      .then((res) => res.json())
+      .then((data) => {
+        //setComments(data)
+        setGetComments(true);
+        //setComment((v) => ({ ...v, [id]: false }));
+        console.log("data", data);
+      })
       .catch((err) => console.log(err));
   };
 
-  //   useEffect(() => {
   //     fetch('/deleteComment', { method: 'DELETE' })
   //         .then(() => setStatus('Delete successful'));
   // }, []);

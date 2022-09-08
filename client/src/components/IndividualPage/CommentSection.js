@@ -4,51 +4,71 @@ import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { Comments } from "./Comments";
 import { useParams } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const CommentSection = () => {
-  const { setComment, handleAfterPost } = useContext(UserContext);
+  const { comments, setComment, handleAfterPost } = useContext(UserContext);
   const [isDisabled, setDisabled] = useState(true);
+  const { user, isAuthenticated } = useAuth0();
 
   const { id } = useParams();
+  if (!comments?.data?.length) {
+    return null;
+  }
+  const commentsArray = comments.data;
+  const filteredCommentsArray = commentsArray.filter((comment) => {
+    if (comment.idItem == id) {
+      return comment;
+    }
+  });
   /*   console.log("id", id)
    */
   // console.log("comment", comment)
   return (
-    <Wrapper>
-      <h3>Comment section</h3>
-      <Comments />
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleAfterPost(id);
-          e.target.reset();
-        }}
-      >
-        <Input
-          type="text"
-          onChange={(e) => {
-            //e.target.reset();
-            setComment(e.target.value);
-            if (e.target.value.length === 0) {
-              setDisabled(true);
-            } else {
-              setDisabled(false);
-            }
-          }}
-        />
-        <PostButtton
-         // style={{ backgroundColor: "#e0edf4", border: "none", padding: 5 }}
-          type="submit"
-          disabled={isDisabled}
-        />
-      </Form>
-      {/* <div>
+    <Page>
+      {!filteredCommentsArray && (
+        <Wrapper>
+          <h3>Comment section</h3>
+          <Comments />
+          {user && (
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleAfterPost(id);
+                e.target.reset();
+                setDisabled(true);
+              }}
+            >
+              <Input
+                type="text"
+                onChange={(e) => {
+                  //e.target.reset();
+                  setComment(e.target.value);
+                  if (e.target.value.length === 0) {
+                    setDisabled(true);
+                  } else {
+                    setDisabled(false);
+                  }
+                }}
+              />
+              <PostButtton
+                // style={{ backgroundColor: "#e0edf4", border: "none", padding: 5 }}
+                type="submit"
+                disabled={isDisabled}
+                // onClick={() =>{setDisabled(true)}}
+              />
+            </Form>
+          )}
+
+          {/* <div>
 
 {comment}  
 </div> */}
-      {/* <CommentSectionPostAre>
+          {/* <CommentSectionPostAre>
       </CommentSectionPostAre> */}
-    </Wrapper>
+        </Wrapper>
+      )}
+    </Page>
   );
 };
 const Form = styled.form`
@@ -66,7 +86,7 @@ const Input = styled.textarea`
   display: block;
   height: 100px;
   width: 300px;
-font-family: var( --heading-font-family);
+  font-family: var(--heading-font-family);
 `;
 
 const PostButtton = styled.input`
@@ -74,25 +94,30 @@ const PostButtton = styled.input`
   width: 25%;
   height: 10%;
   color: white;
-  //background-color:var(--secondary-color); 
+  //background-color:var(--secondary-color);
   border-radius: 5px;
   padding: 5px;
-   background-color: ${(p) => (p.disabled ? "gray" : "#3A1D00" )};
+  background-color: ${(p) => (p.disabled ? "gray" : "#3A1D00")};
   border-color: ${(p) => (p.disabled ? "gray" : "#3A1D00")};
 `;
 const Wrapper = styled.div`
-background-color: white;
-border-radius: 5px;
-margin: 40px;
-padding: 40px;
+  //min-height: 50vh;
+  background-color: white;
+  border-radius: 5px;
+  margin: 40px;
+  padding: 40px;
   /* height: 60px;
   margin-top: 150px;
   margin-left: auto;
   margin-left: auto; */
 `;
+const Page = styled.div`
+  min-height: 50vh;
+
+`
 const Description = styled.p`
   width: 50%;
-  `;
+`;
 const FullSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -137,10 +162,6 @@ const CommentSectionPostAre = styled.div`
      Post
    </PostButtton> */
 }
-
-
-
-
 
 // import React from "react";
 // import { UserContext } from "../UserContext";
@@ -188,7 +209,7 @@ const CommentSectionPostAre = styled.div`
 //       </Form>
 //       {/* <div>
 
-// {comment}  
+// {comment}
 // </div> */}
 //       {/* <CommentSectionPostAre>
 //       </CommentSectionPostAre> */}
@@ -218,7 +239,7 @@ const CommentSectionPostAre = styled.div`
 //   width: 25%;
 //   height: 10%;
 //   color: white;
-//   //background-color:var(--secondary-color); 
+//   //background-color:var(--secondary-color);
 //   border-radius: 5px;
 //   padding: 5px;
 //    background-color: ${(p) => (p.disabled ? "gray" : "#3A1D00" )};

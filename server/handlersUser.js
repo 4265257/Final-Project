@@ -43,11 +43,12 @@ const getPosts = async (req, res) => {
   const posts = await db.collection("comments").find().toArray();
   if (posts.length) {
     res.status(200).json({ status: 200, data: posts });
-  } else if (posts.length === 0) {
-    res
-      .status(404)
-      .json({ status: 404, data: posts, message: "Not found" });
-  }
+  } 
+  // else if (posts.length === 0) {
+  //   res
+  //     .status(404)
+  //     .json({ status: 404, data: posts, message: "Not found" });
+  // }
   client.close();
 };
 //returns all favorites
@@ -60,11 +61,12 @@ const getFavorites = async (req, res) => {
   const favorites = await db.collection("favorites").find({"user.sub":sub}).toArray();
   if (favorites.length) {
     res.status(200).json({ status: 200, data: favorites });
-  } else if (favorites.length === 0) {
-    res
-      .status(404)
-      .json({ status: 404, data: favorites, message: "Not found" });
-  }
+  } 
+  // else if (favorites.length === 0) {
+  //   res
+  //     .status(404)
+  //     .json({ status: 404, data: favorites, message: "Not found" });
+  // }
   client.close();
 };
 

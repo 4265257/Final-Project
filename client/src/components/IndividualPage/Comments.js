@@ -31,9 +31,9 @@ export const Comments = () => {
             {comment?.user?.picture && (
               <ImageUser src={comment.user?.picture} />
             )}
-            {!comment?.user?.picture && <ImageUser src={PicUser} />}
+            {/* {!comment?.user?.picture && <ImageUser src={PicUser} />} */}
             {comment?.user?.name && <Name>{comment?.user?.name} </Name>}
-            {!comment?.user?.name && <Name>Anonymous user</Name>}
+          {/*  {!comment?.user?.name && <Name>Anonymous user</Name>} */}
             <Status>{comment.status}</Status>
             {comment?.user?.sub == user?.sub && (
               <DeleteButton
@@ -82,7 +82,7 @@ const CommentSection = styled.div`
   //text-align: left;
   // margin: 40px;
   // overflow-wrap: break-word;
-  //width: 300px;
+  width: 300px;
   //height: fit-content;
   border: solid 2px gray;
   border-radius: 5px;
