@@ -78,7 +78,7 @@ const Profile = () => {
                   </RemoveImageArea>
                 )}
                 {fruitItems && (
-                  <RemoveImageArea key={i}>
+                  <RemoveImageArea key={i+1}>
                     <ImageArea to={`/${fruitItems?.id}`}>
                       <Image
                         style={{
@@ -100,7 +100,7 @@ const Profile = () => {
                   </RemoveImageArea>
                 )}
                 {fineHerbeItems && (
-                  <RemoveImageArea key={i}>
+                  <RemoveImageArea key={i+2}>
                     <ImageArea to={`/${fineHerbeItems?.id}`}>
                       <Image
                         style={{

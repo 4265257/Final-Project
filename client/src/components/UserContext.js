@@ -142,7 +142,6 @@ export const UserProvider = ({ children }) => {
       .then((res) => res.json())
       .then((data) => {
         setFavoriteStatus((v) => ({ ...v, [id]: false }));
-        console.log(data);
       })
       .catch((err) => console.log(err));
   };
