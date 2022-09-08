@@ -29,7 +29,7 @@ export const CommentSection = () => {
           onChange={(e) => {
             //e.target.reset();
             setComment(e.target.value);
-            if (e.target.value.length == 0) {
+            if (e.target.value.length === 0) {
               setDisabled(true);
             } else {
               setDisabled(false);

@@ -8,89 +8,93 @@ export const UserProvider = ({ children }) => {
   const [comment, setComment] = useState({ status: "" });
   const [favoriteStatus, setFavoriteStatus] = useState({});
   const [comments, setComments] = useState([]);
+  const [hasNewComments, setHasNewComments] = useState(true);
+
   const [favorites, setFavorites] = useState([]);
   const { user, getAccessTokenSilently } = useAuth0();
   //const [error, setError] = useState('');
-  
+
   /// const { id } = useParams();
   //console.log("id", id)
   useEffect(() => {
-    fetch("/getPosts")
-      .then((res) => res.json())
-      .then((data) => {
-        setComments(data);
-      });
-  }, [comments]);
+    if (hasNewComments) {
+      fetch("/getPosts")
+        .then((res) => res.json())
+        .then((data) => {
+          setComments(data);
+          setHasNewComments(false);
+        });
+    }
+  }, [hasNewComments]);
 
   useEffect(() => {
-   // console.log(user)
-   // console.log("favoriteStatus",favoriteStatus)
-    if(user){
+    // console.log(user)
+    // console.log("favoriteStatus",favoriteStatus)
+    if (user) {
       fetch(`/getFavorites/${user.sub}`)
         .then((res) => res.json())
         .then((data) => {
-        // console.log("data",data.data)
+          // console.log("data",data.data)
           setFavorites(data);
         });
     }
-  }, [
-    favoriteStatus, 
-    user]);
+  }, [favoriteStatus, user]);
 
+  // useEffect(() => {
+  //   const getFavoritesFxn = async () => {
+  //     //console.log(user)
+  //     if (user) {
+  //       const accessToken = getAccessTokenSilently();
+  //       fetch(`/getFavorites/${user.sub}`, {
+  //         //method: 'GET',
+  //         headers: {
+  //           Authorization: "Bearer " + accessToken,
+  //         },
+  //       }).then((res) => {
+  //         if (res.status === 200) {
+  //           return res.json().then((data) => {
+  //             // console.log("data",data.data)
+  //             setFavorites(data);
+  //           });
+  //         } else {
+  //           setError(res.statusText);
+  //         }
+  //       });
+  //     }
+  //   };
+  //   getFavoritesFxn();
+  // }, [favoriteStatus, user, getAccessTokenSilently]);
 
-    // useEffect(() => {
-    //   const getFavoritesFxn = async () => {
-    //     //console.log(user)
-    //     if (user) {
-    //       const accessToken = getAccessTokenSilently();
-    //       fetch(`/getFavorites/${user.sub}`, {
-    //         //method: 'GET',
-    //         headers: {
-    //           Authorization: "Bearer " + accessToken,
-    //         },
-    //       }).then((res) => {
-    //         if (res.status === 200) {
-    //           return res.json().then((data) => {
-    //             // console.log("data",data.data)
-    //             setFavorites(data);
-    //           });
-    //         } else {
-    //           setError(res.statusText);
-    //         }
-    //       });
-    //     }
-    //   };
-    //   getFavoritesFxn();
-    // }, [favoriteStatus, user, getAccessTokenSilently]);
-
-
-
-    useEffect(() => {
-     // console.log(user)
-      if(favorites?.data?.length){
-        // fetch(`/getFavorites/${user.sub}`)
-        //   .then((res) => res.json())
-        //   .then((data) => {
-           // console.log("data",data.data)
-            const favoritesObj = {}
-            favorites.data.forEach((item) =>{
-              favoritesObj[item.idItem] = true
-             // console.log("item",item)
-            })
-          setFavoriteStatus(favoritesObj)
-          ;
+  useEffect(() => {
+    // console.log(user)
+    if (favorites?.data?.length) {
+      // fetch(`/getFavorites/${user.sub}`)
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      let isSame = true;
+      // console.log("data",data.data)
+      const favoritesObj = {};
+      favorites.data.forEach((item) => {
+        if (!favoriteStatus[item.idItem]) {
+          isSame = false;
+        }
+        favoritesObj[item.idItem] = true;
+        // console.log("item",item)
+      });
+      if (!isSame) {
+        setFavoriteStatus(favoritesObj);
       }
-    }, [favorites,
-      user]);
+    }
+  }, [favorites]);
 
   const handleAfterFavorite = async (id) => {
-    const accessToken = await getAccessTokenSilently()
+    const accessToken = await getAccessTokenSilently();
     const response = await fetch("/addFavorite", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: 'Bearer ' + accessToken
+        Authorization: "Bearer " + accessToken,
       },
       body: JSON.stringify({
         user: user,
@@ -108,13 +112,13 @@ export const UserProvider = ({ children }) => {
   };
 
   const handleAfterPost = async (id) => {
-    const accessToken = await getAccessTokenSilently()
+    const accessToken = await getAccessTokenSilently();
     const response = await fetch("/addPost", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: 'Bearer ' + accessToken
+        Authorization: "Bearer " + accessToken,
       },
       body: JSON.stringify({
         user: user,
@@ -122,11 +126,12 @@ export const UserProvider = ({ children }) => {
         idItem: id,
       }),
     })
-      // .then((response) => response.json())
-      // .then((data) => {
-      //   console.log("data",data)
-      //   setComment((v) => ({ ...v, [id]: true }));
-      // })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data", data);
+        setHasNewComments(true);
+        // setComment((v) => ({ ...v, [id]: true }));
+      })
       .catch((error) => {
         console.error("Error:", error);
       });
@@ -134,14 +139,14 @@ export const UserProvider = ({ children }) => {
   //console.log("favorites", favorites)
 
   const handleAfterDeletePost = async (id, commentId) => {
-   // console.log("id", id);
-   const accessToken = await getAccessTokenSilently()
+    // console.log("id", id);
+    const accessToken = await getAccessTokenSilently();
     const response = await fetch(`/deleteComment/${commentId}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
-        Authorization: 'Bearer ' + accessToken
+        Authorization: "Bearer " + accessToken,
       },
     })
       // .then((res) => res.json())
@@ -158,14 +163,14 @@ export const UserProvider = ({ children }) => {
   // }, []);
 
   const handleAfterDeleteFavorite = async (id) => {
-   // setFavorites
-   const accessToken = await getAccessTokenSilently()
+    // setFavorites
+    const accessToken = await getAccessTokenSilently();
     fetch(`/deleteFavorite/${id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
         Accept: "application/json",
-        Authorization: 'Bearer ' + accessToken
+        Authorization: "Bearer " + accessToken,
       },
     })
       .then((res) => res.json())
