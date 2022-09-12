@@ -54,9 +54,9 @@ const Profile = () => {
               (fineHerbe) => fineHerbe.id == favorite.idItem
             );
             return (
-              <div>
+              <div key={favorite.idItem}>
                 {veggieItems && (
-                  <RemoveImageArea key={i}>
+                  <RemoveImageArea>
                     <ImageArea to={`/${veggieItems?.id}`}>
                       <Image
                         style={{
@@ -78,7 +78,7 @@ const Profile = () => {
                   </RemoveImageArea>
                 )}
                 {fruitItems && (
-                  <RemoveImageArea key={i+1}>
+                  <RemoveImageArea>
                     <ImageArea to={`/${fruitItems?.id}`}>
                       <Image
                         style={{
@@ -100,7 +100,7 @@ const Profile = () => {
                   </RemoveImageArea>
                 )}
                 {fineHerbeItems && (
-                  <RemoveImageArea key={i+2}>
+                  <RemoveImageArea>
                     <ImageArea to={`/${fineHerbeItems?.id}`}>
                       <Image
                         style={{

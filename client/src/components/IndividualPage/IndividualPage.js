@@ -1,7 +1,7 @@
 import React from "react";
 import { ItemContext } from "../ItemContext";
 import { UserContext } from "../UserContext";
-import { useState, useContext, useEffect } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { CommentSection } from "./CommentSection";
@@ -161,7 +161,7 @@ const DescriptionSection = styled.div`
   width: 400px;
 `;
 const Wrapper = styled.div`
-  height: auto;
+  min-height: 100vh;
   margin-top: 100px;
 `;
 const Description = styled.p`

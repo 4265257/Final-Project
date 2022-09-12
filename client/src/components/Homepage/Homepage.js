@@ -10,7 +10,7 @@ const Homepage = () => {
     <HomeArea>
       <h2 style={{ textAlign: "center" }}>Vegetables</h2>
       <Layout>
-        {veggiesInfo.map((veggie) => {
+        {veggiesInfo?.map((veggie) => {
           return (
             <ImageArea key={veggie.id} to={`/${veggie.id}`}>
               <Image
@@ -27,7 +27,7 @@ const Homepage = () => {
       </Layout>
       <h2 style={{ textAlign: "center" }}>Fines Herbes</h2>
       <Layout>
-        {fineHerbesInfo.map((fineHerbe) => {
+        {fineHerbesInfo?.map((fineHerbe) => {
           return (
             <ImageArea key={fineHerbe.id} to={`/${fineHerbe.id}`}>
               <Image
@@ -44,7 +44,7 @@ const Homepage = () => {
       </Layout>
       <h2 style={{ textAlign: "center" }}>Fruits</h2>
       <Layout>
-        {fruitsInfo.map((fruit) => {
+        {fruitsInfo?.map((fruit) => {
           return (
             <ImageArea key={fruit.id} to={`/${fruit.id}`}>
               <Image

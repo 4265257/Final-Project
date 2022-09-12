@@ -21,7 +21,7 @@ export const Comments = () => {
 
   return (
     <div>
-      {filteredCommentsArray.map((comment, index) => {
+      {filteredCommentsArray?.map((comment, index) => {
         return (
           <CommentSection key={index}>
             {comment?.user?.picture && (

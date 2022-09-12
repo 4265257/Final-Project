@@ -17,13 +17,10 @@ export const CommentSection = () => {
       return comment;
     }
   });
-  if (!comments?.data?.length) {
-    return null;
-  }
   return (
     <Wrapper>
       <h3>Comment section</h3>
-      {filteredCommentsArray.length == 0 && (
+      {filteredCommentsArray?.length == 0 && (
         <Textarea>No comments yet!</Textarea>
       )}
       <Comments />
