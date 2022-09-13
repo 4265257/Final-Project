@@ -4,7 +4,6 @@ import { UserContext } from "./UserContext";
 import { useContext } from "react";
 import { ItemContext } from "./ItemContext";
 import { Image } from "cloudinary-react";
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Profile = () => {
@@ -13,7 +12,6 @@ const Profile = () => {
     useContext(UserContext);
   const { veggiesInfo, fruitsInfo, fineHerbesInfo } = useContext(ItemContext);
   const favoritesArray = favorites.data;
-  const { id } = useParams();
   const filteredFavoritesArray = favoritesArray;
   return (
     <Wrapper>

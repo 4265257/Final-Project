@@ -28,13 +28,13 @@ const getFruits = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   await client.connect();
   const db = client.db("db-name");
-  const veggies = await db.collection("fruits").find().toArray();
-  if (veggies.length) {
-    res.status(200).json({ status: 200, data: veggies });
-  } else if (veggies.length === 0) {
+  const fruits = await db.collection("fruits").find().toArray();
+  if (fruits.length) {
+    res.status(200).json({ status: 200, data: fruits });
+  } else if (fruits.length === 0) {
     res
       .status(404)
-      .json({ status: 404, data: veggies, message: "Not found" });
+      .json({ status: 404, data: fruits, message: "Not found" });
   }
   client.close();
 };
@@ -44,13 +44,13 @@ const getFineHerbes = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   await client.connect();
   const db = client.db("db-name");
-  const veggies = await db.collection("fineHerbes").find().toArray();
-  if (veggies.length) {
-    res.status(200).json({ status: 200, data: veggies });
-  } else if (veggies.length === 0) {
+  const fineHerbes = await db.collection("fineHerbes").find().toArray();
+  if (fineHerbes.length) {
+    res.status(200).json({ status: 200, data: fineHerbes });
+  } else if (fineHerbes.length === 0) {
     res
       .status(404)
-      .json({ status: 404, data: veggies, message: "Not found" });
+      .json({ status: 404, data: fineHerbes, message: "Not found" });
   }
   client.close();
 };

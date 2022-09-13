@@ -1,6 +1,6 @@
 import React from "react";
 import { UserContext } from "../UserContext";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import { Comments } from "./Comments";
 import { useParams } from "react-router-dom";

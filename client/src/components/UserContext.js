@@ -65,7 +65,7 @@ export const UserProvider = ({ children }) => {
 
   const handleAfterFavorite = async (id) => {
     const accessToken = await getAccessTokenSilently();
-    const response = await fetch("/addFavorite", {
+    await fetch("/addFavorite", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -88,7 +88,7 @@ export const UserProvider = ({ children }) => {
 
   const handleAfterPost = async (id) => {
     const accessToken = await getAccessTokenSilently();
-    const response = await fetch("/addPost", {
+   await fetch("/addPost", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -113,7 +113,7 @@ export const UserProvider = ({ children }) => {
 
   const handleAfterDeletePost = async (id, commentId) => {
     const accessToken = await getAccessTokenSilently();
-    const response = await fetch(`/deleteComment/${commentId}`, {
+     await fetch(`/deleteComment/${commentId}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -131,7 +131,7 @@ export const UserProvider = ({ children }) => {
 
   const handleAfterDeleteFavorite = async (id) => {
     const accessToken = await getAccessTokenSilently();
-    fetch(`/deleteFavorite/${id}`, {
+   await fetch(`/deleteFavorite/${id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
